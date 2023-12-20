@@ -4,10 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.york.dao.BookInfoMapper;
 import com.york.dao.LendListMapper;
-import com.york.po.BookInfo;
-import com.york.po.LendList;
+import com.york.entity.BookInfo;
+import com.york.entity.LendList;
 import com.york.service.LendListService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

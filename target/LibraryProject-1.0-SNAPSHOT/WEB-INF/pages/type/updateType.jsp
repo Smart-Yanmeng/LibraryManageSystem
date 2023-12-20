@@ -18,6 +18,7 @@
         }
     </style>
 </head>
+
 <body>
 <div class="layui-form layuimini-form">
     <input type="hidden" name="id" value="${info.id}">
@@ -25,7 +26,7 @@
         <label class="layui-form-label required">类型名称</label>
         <div class="layui-input-block">
             <input type="text" name="name" lay-verify="required" value="${info.name}" class="layui-input">
-            <tip>填写自己类型名称</tip>
+            <tip>填写类型名称</tip>
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
@@ -41,6 +42,7 @@
         </div>
     </div>
 </div>
+
 <script src="${pageContext.request.contextPath}/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script>
     layui.use(['form'], function () {

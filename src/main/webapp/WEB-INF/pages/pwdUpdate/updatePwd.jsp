@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <!DOCTYPE html>
@@ -12,9 +12,14 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/lib/layui-v2.5.5/css/layui.css" media="all">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/public.css" media="all">
     <style>
-        .layui-form-item .layui-input-company {width: auto;padding-right: 10px;line-height: 38px;}
+        .layui-form-item .layui-input-company {
+            width: auto;
+            padding-right: 10px;
+            line-height: 38px;
+        }
     </style>
 </head>
+
 <body>
 <div class="layuimini-container">
     <div class="layuimini-main">
@@ -23,20 +28,23 @@
             <div class="layui-form-item">
                 <label class="layui-form-label required">旧的密码</label>
                 <div class="layui-input-block">
-                    <input type="password" name="oldPwd" id="oldPwd" lay-verify="required" lay-reqtext="旧密码不能为空" placeholder="请输入旧的密码"  value="" class="layui-input">
+                    <input type="password" name="oldPwd" id="oldPwd" lay-verify="required" lay-reqtext="旧密码不能为空"
+                           placeholder="请输入旧的密码" value="" class="layui-input">
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label required">新的密码</label>
                 <div class="layui-input-block">
-                    <input type="password" name="newPwd" id="newPwd" lay-verify="required" lay-reqtext="新密码不能为空" placeholder="请输入新的密码"  value="" class="layui-input">
+                    <input type="password" name="newPwd" id="newPwd" lay-verify="required" lay-reqtext="新密码不能为空"
+                           placeholder="请输入新的密码" value="" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label required">确认密码</label>
                 <div class="layui-input-block">
-                    <input type="password" name="againPwd" id="againPwd" lay-verify="required" lay-reqtext="密码不能为空" placeholder="请输入新的密码"  value="" class="layui-input">
+                    <input type="password" name="againPwd" id="againPwd" lay-verify="required"
+                           lay-reqtext="密码不能为空" placeholder="请输入新的密码" value="" class="layui-input">
                 </div>
             </div>
 
@@ -56,26 +64,25 @@
             layer = layui.layer,
             $ = layui.$;
 
-        //监听提交
+        // 监听提交
         form.on('submit(saveBtn)', function (data) {
-            var datas=data.field;//form单中的数据信息
-            if (datas.newPwd != datas.againPwd){
+            var datas = data.field;
+            if (datas.newPwd !== datas.againPwd) {
                 layer.msg("两次输入的新密码不一致,请重新输入")
-            }else{
-                //向后台发送数据提交添加
+            } else {
                 $.ajax({
-                    url:"updatePwdSubmit2", //读者的修改密码
-                    type:"POST",
+                    url: "updatePwdSubmit2",
+                    type: "POST",
                     data: {
-                        oldPwd:datas.oldPwd,
-                        newPwd:datas.newPwd
+                        oldPwd: datas.oldPwd,
+                        newPwd: datas.newPwd
                     },
-                    success:function(result){
-                        if(result.code==0){//如果成功
-                            layer.msg("修改成功",{
-                                icon:6,
-                                time:500
-                            },function(){
+                    success: function (result) {
+                        if (result.code === 0) {
+                            layer.msg("修改成功", {
+                                icon: 6,
+                                time: 500
+                            }, function () {
                                 var oldPassword = document.getElementById("oldPwd");
                                 var newPassword = document.getElementById("newPwd");
                                 var againPassword = document.getElementById("againPwd");
@@ -83,12 +90,13 @@
                                 newPassword.value = "";
                                 againPassword.value = "";
                             })
-                        }else{
+                        } else {
                             layer.msg(result.msg);
                         }
                     }
                 })
             }
+
             return false;
         });
 

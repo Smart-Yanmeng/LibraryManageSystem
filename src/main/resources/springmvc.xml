@@ -10,7 +10,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--开启注解扫描，只扫描Controller注解-->
+    <!--开启注解扫描，只扫描 Controller 注解-->
     <context:component-scan base-package="com.york.controller"></context:component-scan>
 
     <!--注册注解驱动（开启SpringMVC注解的支持）-->
@@ -27,13 +27,13 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <!--配置的视图解析器对象-->
+    <!-- 配置的视图解析器对象 -->
     <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <!--配置拦截器-->
+    <!-- 配置拦截器 -->
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>

@@ -25,7 +25,7 @@
         <!--注入连接池-->
         <property name="dataSource" ref="dataSource"/>
         <!--使得实体类中用类名作为别名-->
-        <property name="typeAliasesPackage" value="com.york.po"></property>
+        <property name="typeAliasesPackage" value="com.york.entity"></property>
 
         <!--分页-->
         <property name="plugins">
@@ -33,7 +33,7 @@
                 <bean class="com.github.pagehelper.PageInterceptor">
                     <property name="properties">
                         <props>
-                            <!--页号在合理值 0 - max-->
+                            <!-- 页号在合理值 0 - max -->
                             <prop key="reasonable">true</prop>
                         </props>
                     </property>
@@ -49,7 +49,8 @@
     </bean>
     <!--告知spring注解位置，保证注解有效性，下面注解扫描表示Controller不扫，给service和dao扫描-->
     <context:component-scan base-package="com.york">
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"></context:exclude-filter>
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"></context:exclude-filter>
     </context:component-scan>
     <!--引入一个事务管理器-->
     <bean id="tx" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

@@ -1,10 +1,13 @@
 package com.york.service;
 
 import com.github.pagehelper.PageInfo;
-import com.york.po.BookInfo;
+import com.york.entity.BookInfo;
 
 import java.util.List;
 
+/**
+ * 图书业务接口
+ */
 public interface BookInfoService {
 
     /**

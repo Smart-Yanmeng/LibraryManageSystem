@@ -1,6 +1,6 @@
 package com.york.dao;
 
-import com.york.po.ReaderInfo;
+import com.york.entity.ReaderInfo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

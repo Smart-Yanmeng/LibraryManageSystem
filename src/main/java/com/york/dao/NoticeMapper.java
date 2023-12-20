@@ -1,6 +1,6 @@
 package com.york.dao;
 
-import com.york.po.Notice;
+import com.york.entity.Notice;
 
 import java.util.List;
 

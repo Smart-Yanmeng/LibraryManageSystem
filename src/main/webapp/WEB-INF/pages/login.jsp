@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>图书管理系统</title>
+    <title>图书管理公示系统</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -49,17 +49,21 @@
         .layui-container {
             width: 100%;
             height: 100%;
-            overflow: hidden
+
+            overflow: hidden;
         }
 
         .admin-login-background {
             width: 450px;
             height: 300px;
+
             position: absolute;
+
             left: 65%;
             top: 45%;
             margin-top: -120px;
             margin-left: -50px;
+
             opacity: 0.9;
         }
 
@@ -76,11 +80,13 @@
         }
 
         .login-form {
-            background-color: #fff;
-            border: 1px solid #fff;
+            background-color: #FFFFFF;
+
+            border: 1px solid #FFFFFF;
             border-radius: 3px;
             padding: 14px 20px;
-            box-shadow: 0 0 8px #eeeeee;
+
+            box-shadow: 0 0 8px #EEEEEE;
         }
 
         .login-form .layui-form-item {
@@ -94,18 +100,29 @@
             width: 38px;
             line-height: 36px;
             text-align: center;
-            color: #d2d2d2;
+            color: #D2D2D2;
         }
 
         .login-form .layui-form-item input {
             padding-left: 36px;
         }
 
+        .login-form .layui-form-item .field {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 100px;
+            height: 36px;
+            line-height: 36px;
+            text-align: center;
+            color: #d2d2d2;
+            cursor: pointer;
+        }
+
         .captcha-img img {
-            height: 34px;
-            border: 1px solid #e6e6e6;
             height: 36px;
             width: 100%;
+            border: 1px solid #E6E6E6;
         }
     </style>
 </head>
@@ -116,47 +133,58 @@
         <div class="layui-form login-form">
             <form class="layui-form" action="${pageContext.request.contextPath}/loginIn" method="post">
                 <div class="layui-form-item logo-title">
-                    <h1>图书管理系统</h1>
+                    <h1>图书管理公示系统</h1>
                     <div style="color: red;text-align: center;">${msg}</div>
                 </div>
+
+                <%-- 用户名输入框 --%>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-username"></label>
-                    <input type="text" name="username" lay-verify="required" placeholder="用户名" autocomplete="off"
+                    <input type="text" name="username" lay-verify="required" placeholder="Username" autocomplete="off"
                            class="layui-input">
                 </div>
+
+                <%-- 密码输入框 --%>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-password"></label>
-                    <input type="password" name="password" lay-verify="required" placeholder="密码" autocomplete="off"
+                    <input type="password" name="password" lay-verify="required" placeholder="Password"
+                           autocomplete="off"
                            class="layui-input">
                 </div>
+
+                <%-- 用户类型选择框 --%>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-username"></label>
                     <select name="type" lay-verify="required">
-                        <option value="">请选择用户类型</option>
-                        <option value="1">管理员</option>
-                        <option value="2">读者</option>
+                        <option value="">Please choose your user type</option>
+                        <option value="1">Admin</option>
+                        <option value="2">Reader</option>
                     </select>
                 </div>
+
                 <div class="layui-form-item">
+                    <%-- 验证码输入框 --%>
                     <div class="layui-input-inline">
-                        <input type="text" name="captcha" style="width: 200px;" lay-verify="required"
-                               placeholder="验证码" autocomplete="off" class="layui-input">
+                        <input type="text" name="captcha" style="width: 300px;" lay-verify="required"
+                               placeholder="Verify code" autocomplete="off" class="layui-input">
                     </div>
-                    <div class="layui-input-inline">
-                        <div class="field">
-                            <a href="javascript:void(0)" onclick="getCode()"><img id="code"></a>
-                        </div>
+
+                    <%-- 验证码图片 --%>
+                    <div class="field">
+                        <a href="javascript:void(0)" onclick="getCode()"><img id="code"></a>
                     </div>
                 </div>
+
                 <div class="layui-form-item">
                     <button class="layui-btn layui-btn layui-btn-normal layui-btn-fluid" lay-submit=""
-                            lay-filter="login">登录
+                            lay-filter="login">Login
                     </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
 <script src="${pageContext.request.contextPath}/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script type="text/javascript">
     getCode();
@@ -165,19 +193,21 @@
      * 获取验证码
      */
     function getCode() {
+
         document.getElementById("code").src = timestamp("verifyCode");
     }
 
     /**
-     * 实现刷新更滑验证码
+     * 刷新验证码
      */
     function timestamp(url) {
-        var gettime = new Date().getTime();
+        var getTime = new Date().getTime();
         if (url.indexOf("?") > -1) {
-            url = url + "&timestamp=" + gettime;
+            url = url + "&timestamp=" + getTime;
         } else {
-            url = url + "?timestamp=" + gettime;
+            url = url + "?timestamp=" + getTime;
         }
+
         return url;
     }
 
@@ -187,20 +217,24 @@
             layer = layui.layer;
         form.on('submit(login)', function (data) {
             data = data.field;
-            if (data.username == '') {
+            if (data.username === '') {
                 layer.msg('用户名不能为空');
+
                 return false;
             }
-            if (data.password == '') {
+            if (data.password === '') {
                 layer.msg('密码不能为空');
+
                 return false;
             }
-            if (data.captcha == '') {
+            if (data.captcha === '') {
                 layer.msg('验证码不能为空');
+
                 return false;
             }
-            if (data.type == '') {
+            if (data.type === '') {
                 layer.msg('类型不能为空');
+
                 return false;
             }
         });

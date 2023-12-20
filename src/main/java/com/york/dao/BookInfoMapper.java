@@ -1,6 +1,6 @@
 package com.york.dao;
 
-import com.york.po.BookInfo;
+import com.york.entity.BookInfo;
 
 import java.util.List;
 

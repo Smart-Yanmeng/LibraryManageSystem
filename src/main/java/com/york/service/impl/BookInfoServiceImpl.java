@@ -3,9 +3,8 @@ package com.york.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.york.dao.BookInfoMapper;
-import com.york.po.BookInfo;
+import com.york.entity.BookInfo;
 import com.york.service.BookInfoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

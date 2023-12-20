@@ -1,10 +1,13 @@
 package com.york.service;
 
 import com.github.pagehelper.PageInfo;
-import com.york.po.LendList;
+import com.york.entity.LendList;
 
 import java.util.List;
 
+/**
+ * 借阅记录业务接口
+ */
 public interface LendListService {
 
     //分页查询

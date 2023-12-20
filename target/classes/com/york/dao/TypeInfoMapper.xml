@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.york.dao.TypeInfoMapper" >
   <!--查询全部类型信息-->
-  <select id="queryTypeInfoAll" resultType="com.york.po.TypeInfo">
+  <select id="queryTypeInfoAll" resultType="com.york.entity.TypeInfo">
     select * from type_info
     <where>
       <if test="name!=null">
@@ -17,7 +17,7 @@
     </insert>
 
   <!--根据id查询类型信息-->
-  <select id="queryTypeInfoById" resultType="com.york.po.TypeInfo">
+  <select id="queryTypeInfoById" resultType="com.york.entity.TypeInfo">
         select * from type_info where id=#{id}
     </select>
 
@@ -33,7 +33,7 @@
       #{id}
     </foreach>
   </delete>
-  <select id="queryTypeName" resultType="com.york.po.TypeInfo">
+  <select id="queryTypeName" resultType="com.york.entity.TypeInfo">
     select type.name
     from type_info type
   </select>

@@ -1,6 +1,6 @@
 package com.york.dao;
 
-import com.york.po.TypeInfo;
+import com.york.entity.TypeInfo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

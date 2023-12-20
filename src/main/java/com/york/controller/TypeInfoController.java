@@ -1,7 +1,7 @@
 package com.york.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.york.po.TypeInfo;
+import com.york.entity.TypeInfo;
 import com.york.service.TypeInfoService;
 import com.york.utils.DataInfo;
 import org.springframework.stereotype.Controller;
@@ -25,6 +25,7 @@ public class TypeInfoController {
      */
     @GetMapping("/typeIndex")
     public String typeIndex() {
+
         return "type/typeIndex";
     }
 
@@ -49,6 +50,7 @@ public class TypeInfoController {
      */
     @GetMapping("/typeAdd")
     public String typeAdd() {
+
         return "type/typeAdd";
     }
 
@@ -60,18 +62,20 @@ public class TypeInfoController {
     @PostMapping("/addTypeSubmit")
     @ResponseBody
     public DataInfo addTypeSubmit(TypeInfo info) {
+
         typeInfoService.addTypeSubmit(info);
 
         return DataInfo.ok();
     }
 
     /**
-     * 类型根据id查询(修改)
+     * 类型根据id查询（修改）
      *
      * @return Jsp Page
      */
     @GetMapping("/queryTypeInfoById")
     public String queryTypeInfoById(Integer id, Model model) {
+
         TypeInfo info = typeInfoService.queryTypeInfoById(id);
         model.addAttribute("info", info);
 
@@ -79,28 +83,31 @@ public class TypeInfoController {
     }
 
     /**
-     * 修改提交功能
+     * 修改提交
      *
      * @return DataInfo
      */
     @RequestMapping("/updateTypeSubmit")
     @ResponseBody
     public DataInfo updateTypeSubmit(@RequestBody TypeInfo info) {
+
         typeInfoService.updateTypeSubmit(info);
 
         return DataInfo.ok();
     }
 
     /**
-     * 类型删除
+     * 删除类型
      *
      * @return DataInfo
      */
     @RequestMapping("/deleteType")
     @ResponseBody
     public DataInfo deleteType(String ids) {
+
         List<String> list = Arrays.asList(ids.split(","));
         typeInfoService.deleteTypeByIds(list);
+
         return DataInfo.ok();
     }
 }

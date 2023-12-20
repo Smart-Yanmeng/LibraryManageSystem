@@ -3,8 +3,8 @@ package com.york.controller;
 import com.york.codeutil.IVerifyCodeGen;
 import com.york.codeutil.SimpleCharVerifyCodeGenImpl;
 import com.york.codeutil.VerifyCode;
-import com.york.po.Admin;
-import com.york.po.ReaderInfo;
+import com.york.entity.Admin;
+import com.york.entity.ReaderInfo;
 import com.york.service.AdminService;
 import com.york.service.ReaderInfoService;
 import org.springframework.stereotype.Controller;
@@ -23,11 +23,14 @@ public class LoginController {
 
     @Resource
     private AdminService adminService;
+
     @Resource
     private ReaderInfoService readerService;
 
     /**
-     * 登录页面的转发
+     * 登录页面跳转
+     *
+     * @return Jsp Page
      */
     @GetMapping("/login")
     public String login() {
@@ -35,10 +38,10 @@ public class LoginController {
     }
 
     /**
-     * 获取验证码方法
+     * 获取验证码
      *
-     * @param request
-     * @param response
+     * @param request  Servlet 请求
+     * @param response Servlet 响应
      */
     @RequestMapping("/verifyCode")
     public void verifyCode(HttpServletRequest request, HttpServletResponse response) {
@@ -56,8 +59,6 @@ public class LoginController {
             // 设置响应头
             response.setHeader("Pragma", "no-cache");
             response.setHeader("Cache-Control", "no-cache");
-
-            // 在代理服务器端防止缓冲
             response.setDateHeader("Expires", 0);
 
             // 设置响应内容类型
@@ -70,17 +71,18 @@ public class LoginController {
     }
 
     /**
-     * 登录验证
+     * 登录验证：从 session 中获取用户上传的数据，如果验证失败则跳转到登录页面
      */
     @RequestMapping("/loginIn")
     public String loginIn(HttpServletRequest request, Model model) {
-        //获取用户名与密码
+
+        // 获取用户名与密码
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String code = request.getParameter("captcha");
         String type = request.getParameter("type");
 
-        //判断验证码是否正确（验证码已经放入session）
+        // 判断验证码是否正确（验证码已经放入session）
         HttpSession session = request.getSession();
         String realCode = (String) session.getAttribute("VerifyCode");
         if (!realCode.toLowerCase().equals(code.toLowerCase())) {
@@ -101,6 +103,7 @@ public class LoginController {
 
                     return "login";
                 }
+
                 session.setAttribute("user", admin);
                 session.setAttribute("type", "admin");
             } else {
@@ -111,6 +114,7 @@ public class LoginController {
 
                     return "login";
                 }
+
                 session.setAttribute("user", readerInfo);
                 session.setAttribute("type", "reader");
             }
@@ -120,13 +124,13 @@ public class LoginController {
     }
 
     /**
-     * 退出功能
+     * 退出登录
      */
     @GetMapping("loginOut")
     public String loginOut(HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        //注销
+        // 结束 session
         session.invalidate();
 
         return "/login";

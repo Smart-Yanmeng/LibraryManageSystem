@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/public.css" media="all">
     <style>
         body {
-            background-color: #ffffff;
+            background-color: #FFFFFF;
         }
     </style>
 </head>
@@ -24,7 +24,7 @@
         <div class="layui-input-block">
             <input type="text" name="name" lay-verify="required" lay-reqtext="类型名称不能为空"
                    placeholder="请输入类型名称" value="" class="layui-input">
-            <tip>填写自己类型名称</tip>
+            <tip>填写类型名称</tip>
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
@@ -47,10 +47,9 @@
             layer = layui.layer,
             $ = layui.$;
 
-        // 监听提交
         form.on('submit(saveBtn)', function (data) {
             var datas = data.field;
-            // 向后台发送数据提交添加
+
             $.ajax({
                 url: "addTypeSubmit",
                 type: "POST",

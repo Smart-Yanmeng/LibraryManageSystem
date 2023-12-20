@@ -1,10 +1,13 @@
 package com.york.service;
 
 import com.github.pagehelper.PageInfo;
-import com.york.po.Notice;
+import com.york.entity.Notice;
 
 import java.util.List;
 
+/**
+ * 公告业务接口
+ */
 public interface NoticeService {
 
     /**

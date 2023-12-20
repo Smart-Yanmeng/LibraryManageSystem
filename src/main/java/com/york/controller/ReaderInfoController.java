@@ -1,8 +1,8 @@
 package com.york.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.york.po.Admin;
-import com.york.po.ReaderInfo;
+import com.york.entity.Admin;
+import com.york.entity.ReaderInfo;
 import com.york.service.AdminService;
 import com.york.service.ReaderInfoService;
 import com.york.utils.DataInfo;
@@ -32,6 +32,7 @@ public class ReaderInfoController {
      */
     @GetMapping("/readerIndex")
     public String readerIndex() {
+
         return "reader/readerIndex";
     }
 
@@ -43,6 +44,7 @@ public class ReaderInfoController {
     @RequestMapping("/readerAll")
     @ResponseBody
     public DataInfo queryReaderAll(ReaderInfo readerInfo, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "15") Integer limit) {
+
         PageInfo<ReaderInfo> pageInfo = readerInfoService.queryAllReaderInfo(readerInfo, pageNum, limit);
 
         return DataInfo.ok("成功", pageInfo.getTotal(), pageInfo.getList());
@@ -66,6 +68,7 @@ public class ReaderInfoController {
     @RequestMapping("/addReaderSubmit")
     @ResponseBody
     public DataInfo addReaderSubmit(@RequestBody ReaderInfo readerInfo) {
+
         readerInfo.setPassword("123456");//设置默认密码
         readerInfoService.addReaderInfoSubmit(readerInfo);
 
@@ -79,8 +82,10 @@ public class ReaderInfoController {
      */
     @GetMapping("/queryReaderInfoById")
     public String queryReaderInfoById(Integer id, Model model) {
+
         ReaderInfo readerInfo = readerInfoService.queryReaderInfoById(id);
         model.addAttribute("info", readerInfo);
+
         return "reader/updateReader";
     }
 
@@ -112,7 +117,7 @@ public class ReaderInfoController {
     }
 
     /**
-     * 修改提交
+     * 从请求中获取 session，判断用户类型，根据用户类型修改密码
      *
      * @return Success Request
      */
@@ -121,20 +126,21 @@ public class ReaderInfoController {
     public DataInfo updatePwdSubmit(HttpServletRequest request, String oldPwd, String newPwd) {
         HttpSession session = request.getSession();
 
+        // 判断用户类型，根据用户类型修改密码
         if (session.getAttribute("type") == "admin") {
-            // 管理员
             Admin admin = (Admin) session.getAttribute("user");
             Admin admin1 = adminService.queryAdminById(admin.getId());
+
+            // 判断输入的旧密码是否正确
             if (!oldPwd.equals(admin1.getPassword())) {
-                return DataInfo.fail("输入的旧密码错误");
+
+                return DataInfo.fail("您输入的旧密码有误，请检查");
             } else {
                 admin1.setPassword(newPwd);
 
-                // 数据库修改
                 adminService.updateAdminSubmit(admin1);
             }
         } else {
-            // 读者
             ReaderInfo readerInfo = (ReaderInfo) session.getAttribute("user");
             ReaderInfo readerInfo1 = readerInfoService.queryReaderInfoById(readerInfo.getId());
 
@@ -145,6 +151,7 @@ public class ReaderInfoController {
                 readerInfoService.updateReaderInfoSubmit(readerInfo1);
             }
         }
+
         return DataInfo.ok();
     }
 }

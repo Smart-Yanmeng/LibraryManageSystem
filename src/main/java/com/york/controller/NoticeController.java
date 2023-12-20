@@ -1,7 +1,7 @@
 package com.york.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.york.po.Notice;
+import com.york.entity.Notice;
 import com.york.service.NoticeService;
 import com.york.utils.DataInfo;
 import org.springframework.stereotype.Controller;
@@ -20,22 +20,24 @@ public class NoticeController {
     private NoticeService noticeService;
 
     /**
-     *  后台公告
+     * 后台公告
      *
-     *  @return Html Page
+     * @return Jsp Page
      */
     @GetMapping("/noticeIndexOfBack")
-    public String noticeIndexOfBack(){
+    public String noticeIndexOfBack() {
+
         return "notice/noticeIndexOfBack";
     }
 
     /**
-     *  后台公告
+     * 后台公告
      *
-     *  @return Html Page
+     * @return Jsp Page
      */
     @GetMapping("/noticeIndexOfReader")
-    public String noticeIndexOfReader(){
+    public String noticeIndexOfReader() {
+
         return "notice/noticeIndexOfReader";
     }
 
@@ -46,19 +48,21 @@ public class NoticeController {
      */
     @RequestMapping("/noticeAll")
     @ResponseBody
-    public DataInfo noticeAll(Notice notice,@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "15")Integer limit){
+    public DataInfo noticeAll(Notice notice, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "15") Integer limit) {
+
         PageInfo<Notice> pageInfo = noticeService.queryAllNotice(notice, pageNum, limit);
 
-        return DataInfo.ok("成功",pageInfo.getTotal(),pageInfo.getList());
+        return DataInfo.ok("成功", pageInfo.getTotal(), pageInfo.getList());
     }
 
     /**
      * 添加
      *
-     * @return Html Page
+     * @return Jsp Page
      */
     @GetMapping("/noticeAdd")
-    public String noticeAdd(){
+    public String noticeAdd() {
+
         return "notice/noticeAdd";
     }
 
@@ -69,8 +73,9 @@ public class NoticeController {
      */
     @RequestMapping("/addNoticeSubmit")
     @ResponseBody
-    public DataInfo addNoticeSubmit(Notice notice){
-        //主题和内容可以页面获取，作者和时间在后台自动获取
+    public DataInfo addNoticeSubmit(Notice notice) {
+
+        // 主题和内容可以页面获取，作者和时间在后台自动获取
         notice.setAuthor("admin");
         notice.setCreateDate(new Date());
         noticeService.addNotice(notice);
@@ -81,12 +86,13 @@ public class NoticeController {
     /**
      * 查看详情（修改）
      *
-     * @return Html Page
+     * @return Jsp Page
      */
     @GetMapping("/queryNoticeById")
-    public String queryNoticeById(Integer id, Model model){
+    public String queryNoticeById(Integer id, Model model) {
+
         Notice notice = noticeService.queryNoticeById(id);
-        model.addAttribute("info",notice);
+        model.addAttribute("info", notice);
 
         return "notice/updateNotice";
     }
@@ -98,7 +104,8 @@ public class NoticeController {
      */
     @RequestMapping("/deleteNoticeByIds")
     @ResponseBody
-    public DataInfo deleteNoticeByIds(String ids){
+    public DataInfo deleteNoticeByIds(String ids) {
+
         List<String> list = Arrays.asList(ids.split(","));
         noticeService.deleteNoticeByIds(list);
 

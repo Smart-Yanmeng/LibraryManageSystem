@@ -15,59 +15,66 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/public.css" media="all">
     <style>
         body {
-            background-color: #ffffff;
+            background-color: #FFFFFF;
         }
     </style>
 </head>
+
 <body>
 <div class="layui-form layuimini-form">
-    <input type="hidden" name="id"   value="${info.id}">
+    <input type="hidden" name="id" value="${info.id}">
     <div class="layui-form-item">
         <label class="layui-form-label required">读者卡号</label>
         <div class="layui-input-block">
-            <input type="text" name="readerNumber" lay-reqtext="读者卡号不能为空" value="${info.readerNumber}" autocomplete="off" class="layui-input">
+            <input type="text" name="readerNumber" lay-reqtext="读者卡号不能为空" value="${info.readerNumber}"
+                   autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label required">用户名</label>
         <div class="layui-input-block">
-            <input type="text" name="username" lay-reqtext="用户名不能为空" value="${info.username}" autocomplete="off" class="layui-input">
+            <input type="text" name="username" lay-reqtext="用户名不能为空" value="${info.username}" autocomplete="off"
+                   class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label required">真实姓名</label>
         <div class="layui-input-block">
-            <input type="text" name="realName" lay-reqtext="真实姓名不能为空"  value="${info.realName}" autocomplete="off" class="layui-input">
+            <input type="text" name="realName" lay-reqtext="真实姓名不能为空" value="${info.realName}"
+                   autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label required">性别</label>
         <div class="layui-input-block">
-            <input type="radio" name="sex"  value="男" title="男"  ${"男" eq info.sex ?"checked='checked'":''} />
-            <input type="radio" name="sex"  value="女" title="女"  ${"女" eq info.sex ?"checked='checked'":''} />
+            <input type="radio" name="sex" value="男" title="男"  ${"男" eq info.sex ?"checked='checked'":''} />
+            <input type="radio" name="sex" value="女" title="女"  ${"女" eq info.sex ?"checked='checked'":''} />
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label required">出生日期</label>
         <div class="layui-input-block">
-            <input type="text" name="birthday" id="date" lay-verify="required"  value="<fmt:formatDate value='${info.birthday}' pattern='yyyy-MM-dd'/>" class="layui-input" autocomplete="off">
+            <input type="text" name="birthday" id="date" lay-verify="required"
+                   value="<fmt:formatDate value='${info.birthday}' pattern='yyyy-MM-dd'/>" class="layui-input"
+                   autocomplete="off">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label required">联系方式</label>
         <div class="layui-input-block">
-            <input type="text" name="tel" lay-verify="required"  class="layui-input" value="${info.tel}" autocomplete="off">
+            <input type="text" name="tel" lay-verify="required" class="layui-input" value="${info.tel}"
+                   autocomplete="off">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label required">邮箱地址</label>
         <div class="layui-input-block">
-            <input type="text" name="email" autocomplete="off" value="${info.email}"  class="layui-input">
+            <input type="text" name="email" autocomplete="off" value="${info.email}" class="layui-input">
         </div>
     </div>
 
@@ -77,41 +84,41 @@
         </div>
     </div>
 </div>
+
 <script src="${pageContext.request.contextPath}/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script>
-    layui.use(['form','laydate'], function () {
+    layui.use(['form', 'laydate'], function () {
         var form = layui.form,
             layer = layui.layer,
-            laydate=layui.laydate,
+            laydate = layui.laydate,
             $ = layui.$;
 
-        //日期
+        // 日期
         laydate.render({
             elem: '#date',
-            trigger:'click'
+            trigger: 'click'
         });
 
-        //监听提交
+        // 监听提交
         form.on('submit(saveBtn)', function (data) {
-            var datas=data.field;//form单中的数据信息
-            //向后台发送数据提交添加
+            var datas = data.field;
+
             $.ajax({
-                url:"updateReaderSubmit",
-                type:"POST",
-                //data:datas,
-                contentType:'application/json',
-                data:JSON.stringify(datas),
-                success:function(result){
-                    if(result.code==0){//如果成功
-                        layer.msg('修改成功',{
-                            icon:6,
-                            time:500
-                        },function(){
+                url: "updateReaderSubmit",
+                type: "POST",
+                contentType: 'application/json',
+                data: JSON.stringify(datas),
+                success: function (result) {
+                    if (result.code === 0) {
+                        layer.msg('修改成功', {
+                            icon: 6,
+                            time: 500
+                        }, function () {
                             parent.window.location.reload();
                             var iframeIndex = parent.layer.getFrameIndex(window.name);
                             parent.layer.close(iframeIndex);
                         })
-                    }else{
+                    } else {
                         layer.msg("修改失败");
                     }
                 }

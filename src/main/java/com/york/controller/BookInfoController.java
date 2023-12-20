@@ -1,8 +1,8 @@
 package com.york.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.york.po.BookInfo;
-import com.york.po.TypeInfo;
+import com.york.entity.BookInfo;
+import com.york.entity.TypeInfo;
 import com.york.service.BookInfoService;
 import com.york.service.TypeInfoService;
 import com.york.utils.DataInfo;
@@ -25,52 +25,67 @@ public class BookInfoController {
 
     /**
      * 图书管理首页
-     * @return
+     *
+     * @return Jsp Page
      */
     @GetMapping("/bookIndex")
-    public String bookIndex(){
+    public String bookIndex() {
         return "book/bookIndex";
     }
 
     /**
      * 获取book信息，封装成json
-     * @param bookInfo
-     * @param pageNum
-     * @param limit
-     * @return
+     *
+     * @param bookInfo BookInfo
+     * @param pageNum  当前页
+     * @param limit    每页显示的条数
+     * @return Request Success
      */
     @RequestMapping("/bookAll")
-    @ResponseBody       //@ResponseBody将java对象转为json格式的数据，表示该方法的返回结果直接写入 HTTP response body 中，一般在异步ajax获取数据时使用
-    public DataInfo bookAll(BookInfo bookInfo, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "15") Integer limit){
-        PageInfo<BookInfo> pageInfo = bookInfoService.queryBookInfoAll(bookInfo,pageNum,limit);
-        return DataInfo.ok("成功",pageInfo.getTotal(),pageInfo.getList());//总条数getTotal，数据封装成list,以便加载分页显示,由于加了ResponseBody,就会返回一个字符串
+    @ResponseBody
+    public DataInfo bookAll(BookInfo bookInfo, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "15") Integer limit) {
+        PageInfo<BookInfo> pageInfo = bookInfoService.queryBookInfoAll(bookInfo, pageNum, limit);
+
+        return DataInfo.ok("成功", pageInfo.getTotal(), pageInfo.getList());
     }
 
     /**
      * 添加页面的跳转
+     *
+     * @return Jsp Page
      */
     @GetMapping("/bookAdd")
-    public String bookAdd(){
+    public String bookAdd() {
+
         return "book/bookAdd";
     }
 
     /**
      * 类型添加提交
+     *
+     * @param info BookInfo
+     * @return Request Success
      */
     @RequestMapping("/addBookSubmit")
     @ResponseBody
-    public DataInfo addBookSubmit(BookInfo info){
+    public DataInfo addBookSubmit(BookInfo info) {
         bookInfoService.addBookSubmit(info);
+
         return DataInfo.ok();
     }
 
     /**
      * 类型根据id查询(修改)
+     *
+     * @param id    id
+     * @param model Model
+     * @return Jsp Page
      */
     @GetMapping("/queryBookInfoById")
-    public String queryTypeInfoById(Integer id, Model model){
-        BookInfo bookInfo= bookInfoService.queryBookInfoById(id);
-        model.addAttribute("info",bookInfo);
+    public String queryTypeInfoById(Integer id, Model model) {
+        BookInfo bookInfo = bookInfoService.queryBookInfoById(id);
+        model.addAttribute("info", bookInfo);
+
         return "book/updateBook";
     }
 
@@ -80,26 +95,27 @@ public class BookInfoController {
 
     @RequestMapping("/updateBookSubmit")
     @ResponseBody
-    public DataInfo updateBookSubmit(@RequestBody BookInfo info){
+    public DataInfo updateBookSubmit(@RequestBody BookInfo info) {
         bookInfoService.updateBookSubmit(info);
         return DataInfo.ok();
     }
+
     /**
      * 类型删除
      */
 
     @RequestMapping("/deleteBook")
     @ResponseBody
-    public DataInfo deleteBook(String ids){
-        List<String> list= Arrays.asList(ids.split(","));
+    public DataInfo deleteBook(String ids) {
+        List<String> list = Arrays.asList(ids.split(","));
         bookInfoService.deleteBookByIds(list);
         return DataInfo.ok();
     }
 
     @RequestMapping("/findAllList")
     @ResponseBody
-    public List<TypeInfo> findAll(){
-        PageInfo<TypeInfo> pageInfo = typeInfoService.queryTypeInfoAll(null,1,100);
+    public List<TypeInfo> findAll() {
+        PageInfo<TypeInfo> pageInfo = typeInfoService.queryTypeInfoAll(null, 1, 100);
         List<TypeInfo> lists = pageInfo.getList();
         return lists;
     }

@@ -1,10 +1,13 @@
 package com.york.service;
 
 import com.github.pagehelper.PageInfo;
-import com.york.po.TypeInfo;
+import com.york.entity.TypeInfo;
 
 import java.util.List;
 
+/**
+ * 图书类型业务接口
+ */
 public interface TypeInfoService {
     /**
      * 查询所有记录

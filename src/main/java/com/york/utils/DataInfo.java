@@ -9,11 +9,16 @@ public class DataInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer code;
-    private String msg;
-    private Object data; //json数据
-    private Long count; // 分页信息：总条数
+    private Integer code = 200;
 
+    private String msg = "Success";
+
+    private Object data;
+
+    // 分页总条数
+    private Long count;
+
+    // 构造函数
     public DataInfo() {
     }
 
@@ -43,7 +48,7 @@ public class DataInfo implements Serializable {
     }
 
     public static DataInfo ok(String msg, long count, Object data) {
-        return new DataInfo(Constants.OK_CODE, Constants.OK_MSG, data,count);
+        return new DataInfo(Constants.OK_CODE, Constants.OK_MSG, data, count);
     }
 
     public static DataInfo ok(String msg, Object data) {

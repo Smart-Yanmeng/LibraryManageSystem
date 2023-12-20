@@ -1,6 +1,6 @@
 package com.york.dao;
 
-import com.york.po.Admin;
+import com.york.entity.Admin;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

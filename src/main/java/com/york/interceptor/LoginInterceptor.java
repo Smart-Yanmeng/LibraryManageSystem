@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * 拦截器
+ * 在处理HTTP请求之前进行登录验证
+ */
 public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
@@ -24,6 +28,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         // 已经登录了就放行，否则进行拦截
         HttpSession session = request.getSession();
+
         if (session.getAttribute("user") != null) {
 
             return true;

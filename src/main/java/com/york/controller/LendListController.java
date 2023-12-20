@@ -1,9 +1,9 @@
 package com.york.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.york.po.BookInfo;
-import com.york.po.LendList;
-import com.york.po.ReaderInfo;
+import com.york.entity.BookInfo;
+import com.york.entity.LendList;
+import com.york.entity.ReaderInfo;
 import com.york.service.BookInfoService;
 import com.york.service.LendListService;
 import com.york.service.ReaderInfoService;
@@ -23,6 +23,7 @@ import java.util.List;
 
 @Controller
 public class LendListController {
+
     @Resource
     private LendListService lendListService;
     @Resource
@@ -38,9 +39,6 @@ public class LendListController {
 
     /**
      * 查询所有的列表
-     * 1 request获取
-     * 2、参数绑定
-     * 3、对象绑定
      */
     @ResponseBody
     @RequestMapping("/lendListAll")
@@ -50,20 +48,22 @@ public class LendListController {
         LendList info = new LendList();
         info.setBackType(type);
 
-        //创建读者对象
+        // 创建读者对象
         ReaderInfo reader = new ReaderInfo();
         reader.setReaderNumber(readerNumber);
-        //把以上对象交给info
+
+        // 把以上对象交给info
         info.setReaderInfo(reader);
 
-        //图书对象
+        // 图书对象
         BookInfo book = new BookInfo();
         book.setName(name);
         book.setStatus(status);
         info.setBookInfo(book);
 
-        //分页查询所有的记录信息
-        PageInfo pageInfo = lendListService.queryLendListAll(info, page, limit);
+        // 分页查询所有的记录信息
+        PageInfo<LendList> pageInfo = lendListService.queryLendListAll(info, page, limit);
+
         return DataInfo.ok("ok", pageInfo.getTotal(), pageInfo.getList());
     }
 
