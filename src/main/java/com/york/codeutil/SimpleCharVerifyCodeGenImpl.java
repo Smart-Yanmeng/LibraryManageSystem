@@ -25,9 +25,9 @@ public class SimpleCharVerifyCodeGenImpl implements IVerifyCodeGen {
     /**
      * 设置背景颜色及大小，干扰线
      *
-     * @param graphics
-     * @param width
-     * @param height
+     * @param graphics Graphics
+     * @param width    验证码图片宽度
+     * @param height   验证码图片高度
      */
     private static void fillBackground(Graphics graphics, int width, int height) {
 
@@ -56,11 +56,11 @@ public class SimpleCharVerifyCodeGenImpl implements IVerifyCodeGen {
     /**
      * 生成随机字符
      *
-     * @param width
-     * @param height
-     * @param os
-     * @return
-     * @throws IOException
+     * @param width  验证码图片宽度
+     * @param height 验证码图片高度
+     * @param os     输出流
+     * @return 验证码
+     * @throws IOException IO异常
      */
     @Override
     public String generate(int width, int height, OutputStream os) throws IOException {
@@ -79,9 +79,9 @@ public class SimpleCharVerifyCodeGenImpl implements IVerifyCodeGen {
     /**
      * 验证码生成
      *
-     * @param width
-     * @param height
-     * @return
+     * @param width  验证码宽度
+     * @param height 验证码高度
+     * @return VerifyCode
      */
     @Override
     public VerifyCode generate(int width, int height) {
@@ -105,8 +105,8 @@ public class SimpleCharVerifyCodeGenImpl implements IVerifyCodeGen {
     /**
      * 设置字符颜色大小
      *
-     * @param g
-     * @param randomStr
+     * @param g         Graphics
+     * @param randomStr 随机字符串
      */
     private void createCharacter(Graphics g, String randomStr) {
 

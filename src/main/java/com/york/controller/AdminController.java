@@ -26,10 +26,20 @@ public class AdminController {
         return "admin/adminIndex";
     }
 
+    /**
+     * 查询所有用户
+     *
+     * @param admin   Admin
+     * @param pageNum 当前页
+     * @param limit   每页显示的条数
+     * @return DataInfo
+     */
     @RequestMapping("/adminAll")
     @ResponseBody
     public DataInfo queryAdminAll(Admin admin, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "15") Integer limit) {
+
         PageInfo<Admin> pageInfo = adminService.queryAdminAll(admin, pageNum, limit);
+
         return DataInfo.ok("成功", pageInfo.getTotal(), pageInfo.getList());
     }
 
@@ -84,6 +94,7 @@ public class AdminController {
     @RequestMapping("/updatePwdSubmit")
     @ResponseBody
     public DataInfo updatePwdSubmit(Integer id, String oldPwd, String newPwd) {
+
         Admin admin = adminService.queryAdminById(id);
 
         if (!oldPwd.equals(admin.getPassword())) {
@@ -106,6 +117,7 @@ public class AdminController {
     @RequestMapping("/deleteAdminByIds")
     @ResponseBody
     public DataInfo deleteAdminByIds(String ids) {
+
         List<String> list = Arrays.asList(ids.split(","));
         adminService.deleteAdminByIds(list);
 

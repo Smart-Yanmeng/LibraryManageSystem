@@ -10,15 +10,19 @@ import java.util.Date;
 @Data
 public class Notice implements Serializable {
 
+    // 公告 ID
     private Integer id;
 
+    // 公告主题
     private String topic;
 
+    // 公告内容
     private String content;
 
+    // 公告作者
     private String author;
 
-    // 格式化接收到的时间
+    // 接收时间
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date createDate;

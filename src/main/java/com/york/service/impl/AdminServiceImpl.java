@@ -31,6 +31,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Admin queryAdminById(Integer id) {
+
         return adminMapper.selectByPrimaryKey(id);
     }
 

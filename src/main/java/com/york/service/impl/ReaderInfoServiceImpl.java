@@ -47,7 +47,6 @@ public class ReaderInfoServiceImpl implements ReaderInfoService {
     public void deleteReaderInfoByIds(List<String> ids) {
 
         for (String id : ids) {
-
             readerInfoMapper.deleteByPrimaryKey(Integer.parseInt(id));
         }
     }

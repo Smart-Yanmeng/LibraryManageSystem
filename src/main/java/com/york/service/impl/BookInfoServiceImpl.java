@@ -18,8 +18,10 @@ public class BookInfoServiceImpl implements BookInfoService {
 
     @Override
     public PageInfo<BookInfo> queryBookInfoAll(BookInfo bookInfo, Integer pageNum, Integer limit) {
+
         PageHelper.startPage(pageNum, limit);
         List<BookInfo> bookInfoList = bookInfoMapper.queryBookInfoAll(bookInfo);
+
         return new PageInfo<>(bookInfoList);
     }
 
@@ -30,6 +32,7 @@ public class BookInfoServiceImpl implements BookInfoService {
 
     @Override
     public BookInfo queryBookInfoById(Integer id) {
+
         return bookInfoMapper.selectByPrimaryKey(id);
     }
 
@@ -47,6 +50,7 @@ public class BookInfoServiceImpl implements BookInfoService {
 
     @Override
     public List<BookInfo> getBookCountByType() {
+
         return bookInfoMapper.getBookCountByType();
     }
 }
