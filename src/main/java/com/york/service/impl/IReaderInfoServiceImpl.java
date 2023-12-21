@@ -2,25 +2,25 @@ package com.york.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.york.dao.ReaderInfoMapper;
+import com.york.dao.IReaderInfoMapper;
 import com.york.entity.ReaderInfo;
-import com.york.service.ReaderInfoService;
+import com.york.service.IReaderInfoService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @Service("readerInfoService")
-public class ReaderInfoServiceImpl implements ReaderInfoService {
+public class IReaderInfoServiceImpl implements IReaderInfoService {
 
     @Resource
-    private ReaderInfoMapper readerInfoMapper;
+    private IReaderInfoMapper IReaderInfoMapper;
 
     @Override
     public PageInfo<ReaderInfo> queryAllReaderInfo(ReaderInfo readerInfo, Integer pageNum, Integer limit) {
 
         PageHelper.startPage(pageNum, limit);
-        List<ReaderInfo> readerInfoList = readerInfoMapper.queryAllReaderInfo(readerInfo);
+        List<ReaderInfo> readerInfoList = IReaderInfoMapper.queryAllReaderInfo(readerInfo);
 
         return new PageInfo<>(readerInfoList);
     }
@@ -28,32 +28,32 @@ public class ReaderInfoServiceImpl implements ReaderInfoService {
     @Override
     public void addReaderInfoSubmit(ReaderInfo readerInfo) {
 
-        readerInfoMapper.insert(readerInfo);
+        IReaderInfoMapper.insert(readerInfo);
     }
 
     @Override
     public ReaderInfo queryReaderInfoById(Integer id) {
 
-        return readerInfoMapper.selectByPrimaryKey(id);
+        return IReaderInfoMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public void updateReaderInfoSubmit(ReaderInfo readerInfo) {
 
-        readerInfoMapper.updateByPrimaryKey(readerInfo);
+        IReaderInfoMapper.updateByPrimaryKey(readerInfo);
     }
 
     @Override
     public void deleteReaderInfoByIds(List<String> ids) {
 
         for (String id : ids) {
-            readerInfoMapper.deleteByPrimaryKey(Integer.parseInt(id));
+            IReaderInfoMapper.deleteByPrimaryKey(Integer.parseInt(id));
         }
     }
 
     @Override
     public ReaderInfo queryUserInfoByNameAndPassword(String username, String password) {
 
-        return readerInfoMapper.queryUserInfoByNameAndPassword(username, password);
+        return IReaderInfoMapper.queryUserInfoByNameAndPassword(username, password);
     }
 }

@@ -2,55 +2,55 @@ package com.york.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.york.dao.BookInfoMapper;
+import com.york.dao.IBookInfoMapper;
 import com.york.entity.BookInfo;
-import com.york.service.BookInfoService;
+import com.york.service.IBookInfoService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @Service("bookInfoService")
-public class BookInfoServiceImpl implements BookInfoService {
+public class IBookInfoServiceImpl implements IBookInfoService {
 
     @Resource
-    private BookInfoMapper bookInfoMapper;
+    private IBookInfoMapper IBookInfoMapper;
 
     @Override
     public PageInfo<BookInfo> queryBookInfoAll(BookInfo bookInfo, Integer pageNum, Integer limit) {
 
         PageHelper.startPage(pageNum, limit);
-        List<BookInfo> bookInfoList = bookInfoMapper.queryBookInfoAll(bookInfo);
+        List<BookInfo> bookInfoList = IBookInfoMapper.queryBookInfoAll(bookInfo);
 
         return new PageInfo<>(bookInfoList);
     }
 
     @Override
     public void addBookSubmit(BookInfo bookInfo) {
-        bookInfoMapper.insert(bookInfo);
+        IBookInfoMapper.insert(bookInfo);
     }
 
     @Override
     public BookInfo queryBookInfoById(Integer id) {
 
-        return bookInfoMapper.selectByPrimaryKey(id);
+        return IBookInfoMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public void updateBookSubmit(BookInfo info) {
-        bookInfoMapper.updateByPrimaryKeySelective(info);
+        IBookInfoMapper.updateByPrimaryKeySelective(info);
     }
 
     @Override
     public void deleteBookByIds(List<String> ids) {
         for (String id : ids) {
-            bookInfoMapper.deleteByPrimaryKey(Integer.parseInt(id));
+            IBookInfoMapper.deleteByPrimaryKey(Integer.parseInt(id));
         }
     }
 
     @Override
     public List<BookInfo> getBookCountByType() {
 
-        return bookInfoMapper.getBookCountByType();
+        return IBookInfoMapper.getBookCountByType();
     }
 }

@@ -2,7 +2,7 @@ package com.york.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.york.entity.Notice;
-import com.york.service.NoticeService;
+import com.york.service.INoticeService;
 import com.york.utils.DataInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +17,7 @@ import java.util.List;
 public class NoticeController {
 
     @Resource
-    private NoticeService noticeService;
+    private INoticeService INoticeService;
 
     /**
      * 后台公告
@@ -50,7 +50,7 @@ public class NoticeController {
     @ResponseBody
     public DataInfo noticeAll(Notice notice, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "15") Integer limit) {
 
-        PageInfo<Notice> pageInfo = noticeService.queryAllNotice(notice, pageNum, limit);
+        PageInfo<Notice> pageInfo = INoticeService.queryAllNotice(notice, pageNum, limit);
 
         return DataInfo.ok("成功", pageInfo.getTotal(), pageInfo.getList());
     }
@@ -78,7 +78,7 @@ public class NoticeController {
         // 主题和内容可以页面获取，作者和时间在后台自动获取
         notice.setAuthor("admin");
         notice.setCreateDate(new Date());
-        noticeService.addNotice(notice);
+        INoticeService.addNotice(notice);
 
         return DataInfo.ok();
     }
@@ -91,7 +91,7 @@ public class NoticeController {
     @GetMapping("/queryNoticeById")
     public String queryNoticeById(Integer id, Model model) {
 
-        Notice notice = noticeService.queryNoticeById(id);
+        Notice notice = INoticeService.queryNoticeById(id);
         model.addAttribute("info", notice);
 
         return "notice/updateNotice";
@@ -107,7 +107,7 @@ public class NoticeController {
     public DataInfo deleteNoticeByIds(String ids) {
 
         List<String> list = Arrays.asList(ids.split(","));
-        noticeService.deleteNoticeByIds(list);
+        INoticeService.deleteNoticeByIds(list);
 
         return DataInfo.ok();
     }

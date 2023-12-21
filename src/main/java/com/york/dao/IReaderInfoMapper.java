@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface ReaderInfoMapper {
+public interface IReaderInfoMapper {
 
     int deleteByPrimaryKey(Integer id);
 

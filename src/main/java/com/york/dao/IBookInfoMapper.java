@@ -4,7 +4,7 @@ import com.york.entity.BookInfo;
 
 import java.util.List;
 
-public interface BookInfoMapper {
+public interface IBookInfoMapper {
 
     int deleteByPrimaryKey(Integer id);
 

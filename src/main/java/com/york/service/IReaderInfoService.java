@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 读者业务接口
  */
-public interface ReaderInfoService {
+public interface IReaderInfoService {
 
     /**
      * 查询所有记录

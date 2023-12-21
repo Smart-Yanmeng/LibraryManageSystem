@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 公告业务接口
  */
-public interface NoticeService {
+public interface INoticeService {
 
     /**
      * 查询所有公告

@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface AdminMapper {
+public interface IAdminMapper {
 
     int deleteByPrimaryKey(Integer id);
 

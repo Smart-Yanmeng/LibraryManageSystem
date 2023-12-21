@@ -4,7 +4,7 @@ import com.york.entity.Notice;
 
 import java.util.List;
 
-public interface NoticeMapper {
+public interface INoticeMapper {
 
     int deleteByPrimaryKey(Integer id);
 

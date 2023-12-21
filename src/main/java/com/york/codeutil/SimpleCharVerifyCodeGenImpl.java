@@ -1,5 +1,6 @@
 package com.york.codeutil;
 
+import com.york.entity.VerifyCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -2,7 +2,7 @@ package com.york.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.york.entity.Notice;
-import com.york.service.NoticeService;
+import com.york.service.INoticeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +14,7 @@ import java.util.List;
 public class BaseController {
 
     @Resource
-    private NoticeService noticeService;
+    private INoticeService INoticeService;
 
     /**
      * 首页
@@ -36,7 +36,7 @@ public class BaseController {
     @GetMapping("/welcome")
     public String welcome(Model model) {
         // 提供公告信息
-        PageInfo<Notice> pageInfo = noticeService.queryAllNotice(null, 1, 5);
+        PageInfo<Notice> pageInfo = INoticeService.queryAllNotice(null, 1, 5);
         if (pageInfo != null) {
             List<Notice> noticeList = pageInfo.getList();
             model.addAttribute("noticeList", noticeList);

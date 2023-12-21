@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 借阅记录业务接口
  */
-public interface LendListService {
+public interface ILendListService {
 
     /**
      * 查询所有借阅记录

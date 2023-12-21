@@ -2,7 +2,7 @@ package com.york.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.york.entity.TypeInfo;
-import com.york.service.TypeInfoService;
+import com.york.service.ITypeInfoService;
 import com.york.utils.DataInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +16,7 @@ import java.util.List;
 public class TypeInfoController {
 
     @Resource
-    private TypeInfoService typeInfoService;
+    private ITypeInfoService ITypeInfoService;
 
     /**
      * 类型管理首页
@@ -38,7 +38,7 @@ public class TypeInfoController {
     @RequestMapping("/typeAll")
     @ResponseBody
     public DataInfo typeAll(String name, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "15") Integer limit) {
-        PageInfo<TypeInfo> pageInfo = typeInfoService.queryTypeInfoAll(name, pageNum, limit);
+        PageInfo<TypeInfo> pageInfo = ITypeInfoService.queryTypeInfoAll(name, pageNum, limit);
 
         return DataInfo.ok("成功", pageInfo.getTotal(), pageInfo.getList());//总条数getTotal，数据封装成list,以便加载分页显示,由于加了ResponseBody,就会返回一个字符串
     }
@@ -63,7 +63,7 @@ public class TypeInfoController {
     @ResponseBody
     public DataInfo addTypeSubmit(TypeInfo info) {
 
-        typeInfoService.addTypeSubmit(info);
+        ITypeInfoService.addTypeSubmit(info);
 
         return DataInfo.ok();
     }
@@ -76,7 +76,7 @@ public class TypeInfoController {
     @GetMapping("/queryTypeInfoById")
     public String queryTypeInfoById(Integer id, Model model) {
 
-        TypeInfo info = typeInfoService.queryTypeInfoById(id);
+        TypeInfo info = ITypeInfoService.queryTypeInfoById(id);
         model.addAttribute("info", info);
 
         return "type/updateType";
@@ -91,7 +91,7 @@ public class TypeInfoController {
     @ResponseBody
     public DataInfo updateTypeSubmit(@RequestBody TypeInfo info) {
 
-        typeInfoService.updateTypeSubmit(info);
+        ITypeInfoService.updateTypeSubmit(info);
 
         return DataInfo.ok();
     }
@@ -106,7 +106,7 @@ public class TypeInfoController {
     public DataInfo deleteType(String ids) {
 
         List<String> list = Arrays.asList(ids.split(","));
-        typeInfoService.deleteTypeByIds(list);
+        ITypeInfoService.deleteTypeByIds(list);
 
         return DataInfo.ok();
     }

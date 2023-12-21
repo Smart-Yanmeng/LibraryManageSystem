@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface TypeInfoMapper {
+public interface ITypeInfoMapper {
     /**
      * 查询所有的记录信息
      */

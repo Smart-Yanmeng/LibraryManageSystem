@@ -2,11 +2,11 @@ package com.york.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.york.dao.BookInfoMapper;
-import com.york.dao.LendListMapper;
+import com.york.dao.IBookInfoMapper;
+import com.york.dao.ILendListMapper;
 import com.york.entity.BookInfo;
 import com.york.entity.LendList;
-import com.york.service.LendListService;
+import com.york.service.ILendListService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,19 +15,19 @@ import java.util.List;
 
 
 @Service("lendListService")
-public class LendListServiceImpl implements LendListService {
+public class ILendListServiceImpl implements ILendListService {
 
     @Resource
-    private LendListMapper lendListMapper;
+    private ILendListMapper ILendListMapper;
 
     @Resource
-    private BookInfoMapper bookInfoMapper;
+    private IBookInfoMapper IBookInfoMapper;
 
     @Override
     public PageInfo<LendList> queryLendListAll(LendList lendList, int page, int limit) {
 
         PageHelper.startPage(page, limit);
-        List<LendList> list = lendListMapper.queryLendListAll(lendList);
+        List<LendList> list = ILendListMapper.queryLendListAll(lendList);
 
         PageInfo pageInfo = new PageInfo(list);
 
@@ -36,7 +36,7 @@ public class LendListServiceImpl implements LendListService {
 
     @Override
     public void addLendListSubmit(LendList lendList) {
-        lendListMapper.insert(lendList);
+        ILendListMapper.insert(lendList);
     }
 
 
@@ -45,17 +45,17 @@ public class LendListServiceImpl implements LendListService {
 
         // 删除借阅记录
         for (String id : ids) {
-            lendListMapper.deleteByPrimaryKey(Integer.parseInt(id));
+            ILendListMapper.deleteByPrimaryKey(Integer.parseInt(id));
         }
 
         // 更改图书标识，更新状态为未借出
         for (String bid : bookIds) {
 
             // 根据id查询图书记录信息
-            BookInfo bookInfo = bookInfoMapper.selectByPrimaryKey(Integer.parseInt(bid));
+            BookInfo bookInfo = IBookInfoMapper.selectByPrimaryKey(Integer.parseInt(bid));
             bookInfo.setStatus(0);
 
-            bookInfoMapper.updateByPrimaryKey(bookInfo);
+            IBookInfoMapper.updateByPrimaryKey(bookInfo);
         }
     }
 
@@ -70,17 +70,17 @@ public class LendListServiceImpl implements LendListService {
             lendList.setBackDate(new Date());
             lendList.setBackType(0);
 
-            lendListMapper.updateLendListSubmit(lendList);
+            ILendListMapper.updateLendListSubmit(lendList);
         }
 
         //更改图书标识，更新状态为未借出
         for (String bid : bookIds) {
 
             //根据id查询图书记录信息
-            BookInfo bookInfo = bookInfoMapper.selectByPrimaryKey(Integer.parseInt(bid));
+            BookInfo bookInfo = IBookInfoMapper.selectByPrimaryKey(Integer.parseInt(bid));
             bookInfo.setStatus(0);//该为未借出
 
-            bookInfoMapper.updateByPrimaryKey(bookInfo);
+            IBookInfoMapper.updateByPrimaryKey(bookInfo);
         }
     }
 
@@ -94,22 +94,22 @@ public class LendListServiceImpl implements LendListService {
         lend.setExceptRemarks(lendList.getExceptRemarks());
         lend.setBookId(lendList.getBookId());
 
-        lendListMapper.updateLendListSubmit(lend);
+        ILendListMapper.updateLendListSubmit(lend);
 
         // 判断异常还书 如果是延期或者正常还书，需要更改书的状态
         if (lend.getBackType() == 0 || lend.getBackType() == 1) {
 
-            BookInfo bookInfo = bookInfoMapper.selectByPrimaryKey(lend.getBookId());
+            BookInfo bookInfo = IBookInfoMapper.selectByPrimaryKey(lend.getBookId());
             bookInfo.setStatus(0);
 
-            bookInfoMapper.updateByPrimaryKey(bookInfo);
+            IBookInfoMapper.updateByPrimaryKey(bookInfo);
         }
     }
 
     @Override
     public List<LendList> queryLookBookList(Integer rid, Integer bid) {
 
-        return lendListMapper.queryLookBookList(rid, bid);
+        return ILendListMapper.queryLookBookList(rid, bid);
     }
 
 }

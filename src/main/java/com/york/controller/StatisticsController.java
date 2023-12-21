@@ -1,8 +1,8 @@
 package com.york.controller;
 
 import com.york.entity.BookInfo;
-import com.york.service.BookInfoService;
-import com.york.service.TypeInfoService;
+import com.york.service.IBookInfoService;
+import com.york.service.ITypeInfoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +14,10 @@ import java.util.List;
 public class StatisticsController {
 
     @Resource
-    private BookInfoService bookInfoService;
+    private IBookInfoService IBookInfoService;
 
     @Resource
-    private TypeInfoService typeInfoService;
+    private ITypeInfoService ITypeInfoService;
 
     /**
      * 统计首页
@@ -29,7 +29,7 @@ public class StatisticsController {
     public String statistics(Model model){
 
         // 根据图书类型查询图书数量
-        List<BookInfo> list = bookInfoService.getBookCountByType();
+        List<BookInfo> list = IBookInfoService.getBookCountByType();
         model.addAttribute("list",list);
 
         return "count/statisticIndex";

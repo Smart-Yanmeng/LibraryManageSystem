@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface LendListMapper {
+public interface ILendListMapper {
 
     void deleteByPrimaryKey(Integer id);
 

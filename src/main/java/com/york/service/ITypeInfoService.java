@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 图书类型业务接口
  */
-public interface TypeInfoService {
+public interface ITypeInfoService {
     /**
      * 查询所有记录
      */

@@ -1,5 +1,7 @@
 package com.york.codeutil;
 
+import com.york.entity.VerifyCode;
+
 import java.io.IOException;
 import java.io.OutputStream;
 

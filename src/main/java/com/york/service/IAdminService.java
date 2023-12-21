@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 管理员业务接口
  */
-public interface AdminService {
+public interface IAdminService {
 
     /**
      * 查询所有管理员（分页）

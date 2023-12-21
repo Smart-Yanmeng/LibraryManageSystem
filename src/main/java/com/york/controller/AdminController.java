@@ -2,7 +2,7 @@ package com.york.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.york.entity.Admin;
-import com.york.service.AdminService;
+import com.york.service.IAdminService;
 import com.york.utils.DataInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +19,7 @@ import java.util.List;
 public class AdminController {
 
     @Resource
-    private AdminService adminService;
+    private IAdminService IAdminService;
 
     @GetMapping("/adminIndex")
     public String adminIndex() {
@@ -38,7 +38,7 @@ public class AdminController {
     @ResponseBody
     public DataInfo queryAdminAll(Admin admin, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "15") Integer limit) {
 
-        PageInfo<Admin> pageInfo = adminService.queryAdminAll(admin, pageNum, limit);
+        PageInfo<Admin> pageInfo = IAdminService.queryAdminAll(admin, pageNum, limit);
 
         return DataInfo.ok("成功", pageInfo.getTotal(), pageInfo.getList());
     }
@@ -63,7 +63,7 @@ public class AdminController {
     @ResponseBody
     public DataInfo addBookSubmit(Admin admin) {
 
-        adminService.addAdminSubmit(admin);
+        IAdminService.addAdminSubmit(admin);
 
         return DataInfo.ok();
     }
@@ -95,14 +95,14 @@ public class AdminController {
     @ResponseBody
     public DataInfo updatePwdSubmit(Integer id, String oldPwd, String newPwd) {
 
-        Admin admin = adminService.queryAdminById(id);
+        Admin admin = IAdminService.queryAdminById(id);
 
         if (!oldPwd.equals(admin.getPassword())) {
 
             return DataInfo.fail("输入的旧密码错误");
         } else {
             admin.setPassword(newPwd);
-            adminService.updateAdminSubmit(admin);
+            IAdminService.updateAdminSubmit(admin);
 
             return DataInfo.ok();
         }
@@ -119,7 +119,7 @@ public class AdminController {
     public DataInfo deleteAdminByIds(String ids) {
 
         List<String> list = Arrays.asList(ids.split(","));
-        adminService.deleteAdminByIds(list);
+        IAdminService.deleteAdminByIds(list);
 
         return DataInfo.ok();
     }

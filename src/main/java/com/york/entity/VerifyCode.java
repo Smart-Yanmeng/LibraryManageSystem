@@ -1,4 +1,4 @@
-package com.york.codeutil;
+package com.york.entity;
 
 import lombok.Data;
 

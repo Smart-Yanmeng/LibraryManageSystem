@@ -2,11 +2,11 @@ package com.york.controller;
 
 import com.york.codeutil.IVerifyCodeGen;
 import com.york.codeutil.SimpleCharVerifyCodeGenImpl;
-import com.york.codeutil.VerifyCode;
+import com.york.entity.VerifyCode;
 import com.york.entity.Admin;
 import com.york.entity.ReaderInfo;
-import com.york.service.AdminService;
-import com.york.service.ReaderInfoService;
+import com.york.service.IAdminService;
+import com.york.service.IReaderInfoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,10 +22,10 @@ import java.io.IOException;
 public class LoginController {
 
     @Resource
-    private AdminService adminService;
+    private IAdminService IAdminService;
 
     @Resource
-    private ReaderInfoService readerService;
+    private IReaderInfoService readerService;
 
     /**
      * 登录页面跳转
@@ -95,7 +95,7 @@ public class LoginController {
             if (type.equals("1")) {
 
                 // 用户名和密码是否正确
-                Admin admin = adminService.queryUserByNameAndPassword(username, password);
+                Admin admin = IAdminService.queryUserByNameAndPassword(username, password);
 
                 // 该用户不存在
                 if (admin == null) {
