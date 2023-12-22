@@ -1,7 +1,7 @@
 package com.york.service;
 
 import com.github.pagehelper.PageInfo;
-import com.york.entity.TypeInfo;
+import com.york.entity.TypeInfoEntity;
 
 import java.util.List;
 
@@ -12,22 +12,22 @@ public interface ITypeInfoService {
     /**
      * 查询所有记录
      */
-    PageInfo<TypeInfo> queryTypeInfoAll(String name, Integer pageNum, Integer limit);
+    PageInfo<TypeInfoEntity> queryTypeInfoAll(String name, Integer pageNum, Integer limit);
 
     /**
      * 添加图书类型
      */
-    void addTypeSubmit(TypeInfo info);
+    void addTypeSubmit(TypeInfoEntity info);
 
     /**
      * 修改 根据id查询记录信息
      */
-    TypeInfo queryTypeInfoById(Integer id);
+    TypeInfoEntity queryTypeInfoById(Integer id);
 
     /**
      * 修改提交
      */
-    void updateTypeSubmit(TypeInfo info);
+    void updateTypeSubmit(TypeInfoEntity info);
 
     /**
      * 根据ids删除记录信息

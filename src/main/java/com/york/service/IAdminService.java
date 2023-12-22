@@ -1,7 +1,7 @@
 package com.york.service;
 
 import com.github.pagehelper.PageInfo;
-import com.york.entity.Admin;
+import com.york.entity.AdminEntity;
 
 import java.util.List;
 
@@ -13,22 +13,22 @@ public interface IAdminService {
     /**
      * 查询所有管理员（分页）
      */
-    PageInfo<Admin> queryAdminAll(Admin admin, Integer pageNum, Integer limit);
+    PageInfo<AdminEntity> queryAdminAll(AdminEntity adminEntity, Integer pageNum, Integer limit);
 
     /**
      * 添加提交
      */
-    void addAdminSubmit(Admin admin);
+    void addAdminSubmit(AdminEntity adminEntity);
 
     /**
      * 根据id查询（修改）
      */
-    Admin queryAdminById(Integer id);
+    AdminEntity queryAdminById(Integer id);
 
     /**
      * 修改提交
      */
-    void updateAdminSubmit(Admin admin);
+    void updateAdminSubmit(AdminEntity adminEntity);
 
     /**
      * 删除
@@ -38,5 +38,5 @@ public interface IAdminService {
     /**
      * 根据用户名和密码查询用户信息
      */
-    Admin queryUserByNameAndPassword(String username, String password);
+    AdminEntity queryUserByNameAndPassword(String username, String password);
 }

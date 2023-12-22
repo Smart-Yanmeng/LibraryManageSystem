@@ -1,6 +1,6 @@
 package com.york.dao;
 
-import com.york.entity.ReaderInfo;
+import com.york.entity.ReaderInfoEntity;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -9,23 +9,23 @@ public interface IReaderInfoMapper {
 
     int deleteByPrimaryKey(Integer id);
 
-    int insert(ReaderInfo record);
+    int insert(ReaderInfoEntity record);
 
-    int insertSelective(ReaderInfo record);
+    int insertSelective(ReaderInfoEntity record);
 
-    ReaderInfo selectByPrimaryKey(Integer id);
+    ReaderInfoEntity selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(ReaderInfo record);
+    int updateByPrimaryKeySelective(ReaderInfoEntity record);
 
-    int updateByPrimaryKey(ReaderInfo record);
+    int updateByPrimaryKey(ReaderInfoEntity record);
 
     /**
      * 查询所有记录信息
      */
-    List<ReaderInfo> queryAllReaderInfo(ReaderInfo readerInfo);
+    List<ReaderInfoEntity> queryAllReaderInfo(ReaderInfoEntity readerInfoEntity);
 
     /**
      * 根据用户名和密码查询用户信息
      */
-    ReaderInfo queryUserInfoByNameAndPassword(@Param("username") String username, @Param("password") String password);
+    ReaderInfoEntity queryUserInfoByNameAndPassword(@Param("username") String username, @Param("password") String password);
 }

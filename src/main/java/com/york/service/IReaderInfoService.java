@@ -1,7 +1,7 @@
 package com.york.service;
 
 import com.github.pagehelper.PageInfo;
-import com.york.entity.ReaderInfo;
+import com.york.entity.ReaderInfoEntity;
 
 import java.util.List;
 
@@ -13,22 +13,22 @@ public interface IReaderInfoService {
     /**
      * 查询所有记录
      */
-    PageInfo<ReaderInfo> queryAllReaderInfo(ReaderInfo readerInfo,Integer pageNum,Integer limit);
+    PageInfo<ReaderInfoEntity> queryAllReaderInfo(ReaderInfoEntity readerInfoEntity, Integer pageNum, Integer limit);
 
     /**
      * 添加
      */
-    void addReaderInfoSubmit(ReaderInfo readerInfo);
+    void addReaderInfoSubmit(ReaderInfoEntity readerInfoEntity);
 
     /**
      * 查询（修改前先查询）
      */
-    ReaderInfo queryReaderInfoById(Integer id);
+    ReaderInfoEntity queryReaderInfoById(Integer id);
 
     /**
      * 修改提交
      */
-    void updateReaderInfoSubmit(ReaderInfo readerInfo);
+    void updateReaderInfoSubmit(ReaderInfoEntity readerInfoEntity);
 
     /**
      * 删除
@@ -38,5 +38,5 @@ public interface IReaderInfoService {
     /**
      * 根据用户名和密码查询用户信息
      */
-    ReaderInfo queryUserInfoByNameAndPassword(String username,String password);
+    ReaderInfoEntity queryUserInfoByNameAndPassword(String username, String password);
 }

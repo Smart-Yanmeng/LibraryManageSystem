@@ -3,7 +3,7 @@ package com.york.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.york.dao.IBookInfoMapper;
-import com.york.entity.BookInfo;
+import com.york.entity.BookInfoEntity;
 import com.york.service.IBookInfoService;
 import org.springframework.stereotype.Service;
 
@@ -17,27 +17,27 @@ public class IBookInfoServiceImpl implements IBookInfoService {
     private IBookInfoMapper IBookInfoMapper;
 
     @Override
-    public PageInfo<BookInfo> queryBookInfoAll(BookInfo bookInfo, Integer pageNum, Integer limit) {
+    public PageInfo<BookInfoEntity> queryBookInfoAll(BookInfoEntity bookInfoEntity, Integer pageNum, Integer limit) {
 
         PageHelper.startPage(pageNum, limit);
-        List<BookInfo> bookInfoList = IBookInfoMapper.queryBookInfoAll(bookInfo);
+        List<BookInfoEntity> bookInfoEntityList = IBookInfoMapper.queryBookInfoAll(bookInfoEntity);
 
-        return new PageInfo<>(bookInfoList);
+        return new PageInfo<>(bookInfoEntityList);
     }
 
     @Override
-    public void addBookSubmit(BookInfo bookInfo) {
-        IBookInfoMapper.insert(bookInfo);
+    public void addBookSubmit(BookInfoEntity bookInfoEntity) {
+        IBookInfoMapper.insert(bookInfoEntity);
     }
 
     @Override
-    public BookInfo queryBookInfoById(Integer id) {
+    public BookInfoEntity queryBookInfoById(Integer id) {
 
         return IBookInfoMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public void updateBookSubmit(BookInfo info) {
+    public void updateBookSubmit(BookInfoEntity info) {
         IBookInfoMapper.updateByPrimaryKeySelective(info);
     }
 
@@ -49,7 +49,7 @@ public class IBookInfoServiceImpl implements IBookInfoService {
     }
 
     @Override
-    public List<BookInfo> getBookCountByType() {
+    public List<BookInfoEntity> getBookCountByType() {
 
         return IBookInfoMapper.getBookCountByType();
     }

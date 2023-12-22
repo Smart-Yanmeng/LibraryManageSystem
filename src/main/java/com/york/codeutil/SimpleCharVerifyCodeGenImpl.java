@@ -1,6 +1,6 @@
 package com.york.codeutil;
 
-import com.york.entity.VerifyCode;
+import com.york.entity.VerifyCodeEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -86,22 +86,22 @@ public class SimpleCharVerifyCodeGenImpl implements IVerifyCodeGen {
      * @return VerifyCode
      */
     @Override
-    public VerifyCode generate(int width, int height) {
+    public VerifyCodeEntity generate(int width, int height) {
 
-        VerifyCode verifyCode = null;
+        VerifyCodeEntity verifyCodeEntity = null;
 
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
             String code = generate(width, height, baos);
 
-            verifyCode = new VerifyCode();
-            verifyCode.setCode(code);
-            verifyCode.setImgBytes(baos.toByteArray());
+            verifyCodeEntity = new VerifyCodeEntity();
+            verifyCodeEntity.setCode(code);
+            verifyCodeEntity.setImgBytes(baos.toByteArray());
         } catch (IOException e) {
             logger.error(e.getMessage(), e);
-            verifyCode = null;
+            verifyCodeEntity = null;
         }
 
-        return verifyCode;
+        return verifyCodeEntity;
     }
 
     /**

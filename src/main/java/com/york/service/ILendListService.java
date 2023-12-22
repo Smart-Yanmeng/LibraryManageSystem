@@ -1,7 +1,7 @@
 package com.york.service;
 
 import com.github.pagehelper.PageInfo;
-import com.york.entity.LendList;
+import com.york.entity.LendEntity;
 
 import java.util.List;
 
@@ -13,19 +13,19 @@ public interface ILendListService {
     /**
      * 查询所有借阅记录
      *
-     * @param lendList LendList
+     * @param lendEntity LendList
      * @param page     当前页
      * @param limit    每页显示的条数
      * @return PageInfo
      */
-    PageInfo<LendList> queryLendListAll(LendList lendList, int page, int limit);
+    PageInfo<LendEntity> queryLendListAll(LendEntity lendEntity, int page, int limit);
 
     /**
      * 添加借阅记录
      *
-     * @param lendList LendList
+     * @param lendEntity LendList
      */
-    void addLendListSubmit(LendList lendList);
+    void addLendListSubmit(LendEntity lendEntity);
 
 
     /**
@@ -46,9 +46,9 @@ public interface ILendListService {
     /**
      * 异常还书
      *
-     * @param lendList LendList
+     * @param lendEntity LendList
      */
-    void backBook(LendList lendList);
+    void backBook(LendEntity lendEntity);
 
     /**
      * 时间线查询
@@ -57,5 +57,5 @@ public interface ILendListService {
      * @param bid 图书 ID
      * @return List<LendList>
      */
-    List<LendList> queryLookBookList(Integer rid, Integer bid);
+    List<LendEntity> queryLookBookList(Integer rid, Integer bid);
 }

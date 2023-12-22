@@ -117,11 +117,11 @@
             background-color: #F8F8F8;
         }
 
-        .layuimini-notice:hover {
+        .layuimini-noticeEntity:hover {
             background: #f6f6f6;
         }
 
-        .layuimini-notice {
+        .layuimini-noticeEntity {
             padding: 7px 16px;
             clear: both;
             font-size: 12px !important;
@@ -130,19 +130,19 @@
             transition: background 0.2s ease-in-out;
         }
 
-        .layuimini-notice-title, .layuimini-notice-label {
+        .layuimini-noticeEntity-title, .layuimini-noticeEntity-label {
             padding-right: 70px !important;
             text-overflow: ellipsis !important;
             overflow: hidden !important;
             white-space: nowrap !important;
         }
 
-        .layuimini-notice-title {
+        .layuimini-noticeEntity-title {
             line-height: 28px;
             font-size: 14px;
         }
 
-        .layuimini-notice-extra {
+        .layuimini-noticeEntity-extra {
             position: absolute;
             top: 50%;
             margin-top: -8px;
@@ -161,13 +161,13 @@
         <div class="layui-card">
             <div class="layui-card-header"><i class="fa fa-bullhorn icon icon-tip"></i>系统公告</div>
             <div class="layui-card-body layui-text">
-                <c:forEach var="notice" items="${noticeList}">
-                    <div class="layuimini-notice">
-                        <div class="layuimini-notice-title">${notice.topic}</div>
-                        <div class="layuimini-notice-extra"><fmt:formatDate value="${notice.createDate}"
+                <c:forEach var="noticeEntity" items="${noticeEntityList}">
+                    <div class="layuimini-noticeEntity">
+                        <div class="layuimini-noticeEntity-title">${noticeEntity.topic}</div>
+                        <div class="layuimini-noticeEntity-extra"><fmt:formatDate value="${noticeEntity.createDate}"
                                                                             pattern="yyyy-MM-dd HH:mm:ss"/></div>
-                        <div class="layuimini-notice-content layui-hide">
-                                ${notice.content}
+                        <div class="layuimini-noticeEntity-content layui-hide">
+                                ${noticeEntity.content}
                         </div>
                     </div>
                 </c:forEach>
@@ -189,10 +189,10 @@
         /**
          * 查看公告信息
          **/
-        $('body').on('click', '.layuimini-notice', function () {
-            var title = $(this).children('.layuimini-notice-title').text(),
-                noticeTime = $(this).children('.layuimini-notice-extra').text(),
-                content = $(this).children('.layuimini-notice-content').html();
+        $('body').on('click', '.layuimini-noticeEntity', function () {
+            var title = $(this).children('.layuimini-noticeEntity-title').text(),
+                noticeTime = $(this).children('.layuimini-noticeEntity-extra').text(),
+                content = $(this).children('.layuimini-noticeEntity-content').html();
             var html = '<div style="padding:15px 20px; text-align:justify; line-height: 22px;border-bottom:1px solid #e2e2e2;background-color: #2f4056;color: #ffffff">\n' +
                 '<div style="text-align: center;margin-bottom: 20px;font-weight: bold;border-bottom:1px solid #718fb5;padding-bottom: 5px"><h4 class="text-danger">' + title + '</h4></div>\n' +
                 '<div style="font-size: 12px">' + content + '</div>\n' +
@@ -202,7 +202,7 @@
                 title: '系统公告' + '<span style="float: right;right: 1px;font-size: 12px;color: #b1b3b9;margin-top: 1px">' + noticeTime + '</span>',
                 area: '300px;',
                 shade: 0.8,
-                id: 'layuimini-notice',
+                id: 'layuimini-noticeEntity',
                 btnAlign: 'c',
                 moveType: 1,
                 content: html

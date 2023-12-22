@@ -1,6 +1,6 @@
 package com.york.dao;
 
-import com.york.entity.TypeInfo;
+import com.york.entity.TypeInfoEntity;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -9,22 +9,22 @@ public interface ITypeInfoMapper {
     /**
      * 查询所有的记录信息
      */
-    List<TypeInfo> queryTypeInfoAll(@Param(value = "name") String name);
+    List<TypeInfoEntity> queryTypeInfoAll(@Param(value = "name") String name);
 
     /**
      * 添加图书类型
      */
-    void addTypeSubmit(TypeInfo info);
+    void addTypeSubmit(TypeInfoEntity info);
 
     /**
      * 修改 根据id查询记录信息，查询弹出修改界，然后修改进行确认提交
      */
-    TypeInfo queryTypeInfoById(Integer id);
+    TypeInfoEntity queryTypeInfoById(Integer id);
 
     /**
      * 修改提交
      */
-    void updateTypeSubmit(TypeInfo info);
+    void updateTypeSubmit(TypeInfoEntity info);
 
     /**
      * 根据ids删除记录信息

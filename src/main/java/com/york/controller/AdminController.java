@@ -1,7 +1,7 @@
 package com.york.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.york.entity.Admin;
+import com.york.entity.AdminEntity;
 import com.york.service.IAdminService;
 import com.york.utils.DataInfo;
 import org.springframework.stereotype.Controller;
@@ -29,16 +29,16 @@ public class AdminController {
     /**
      * 查询所有用户
      *
-     * @param admin   Admin
+     * @param adminEntity   Admin
      * @param pageNum 当前页
      * @param limit   每页显示的条数
      * @return DataInfo
      */
     @RequestMapping("/adminAll")
     @ResponseBody
-    public DataInfo queryAdminAll(Admin admin, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "15") Integer limit) {
+    public DataInfo queryAdminAll(AdminEntity adminEntity, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "15") Integer limit) {
 
-        PageInfo<Admin> pageInfo = IAdminService.queryAdminAll(admin, pageNum, limit);
+        PageInfo<AdminEntity> pageInfo = IAdminService.queryAdminAll(adminEntity, pageNum, limit);
 
         return DataInfo.ok("成功", pageInfo.getTotal(), pageInfo.getList());
     }
@@ -56,14 +56,14 @@ public class AdminController {
     /**
      * 添加提交
      *
-     * @param admin Admin
+     * @param adminEntity Admin
      * @return Request Success
      */
     @RequestMapping("/addAdminSubmit")
     @ResponseBody
-    public DataInfo addBookSubmit(Admin admin) {
+    public DataInfo addBookSubmit(AdminEntity adminEntity) {
 
-        IAdminService.addAdminSubmit(admin);
+        IAdminService.addAdminSubmit(adminEntity);
 
         return DataInfo.ok();
     }
@@ -95,14 +95,14 @@ public class AdminController {
     @ResponseBody
     public DataInfo updatePwdSubmit(Integer id, String oldPwd, String newPwd) {
 
-        Admin admin = IAdminService.queryAdminById(id);
+        AdminEntity adminEntity = IAdminService.queryAdminById(id);
 
-        if (!oldPwd.equals(admin.getPassword())) {
+        if (!oldPwd.equals(adminEntity.getPassword())) {
 
             return DataInfo.fail("输入的旧密码错误");
         } else {
-            admin.setPassword(newPwd);
-            IAdminService.updateAdminSubmit(admin);
+            adminEntity.setPassword(newPwd);
+            IAdminService.updateAdminSubmit(adminEntity);
 
             return DataInfo.ok();
         }

@@ -4,8 +4,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.york.dao.IBookInfoMapper;
 import com.york.dao.ILendListMapper;
-import com.york.entity.BookInfo;
-import com.york.entity.LendList;
+import com.york.entity.BookInfoEntity;
+import com.york.entity.LendEntity;
 import com.york.service.ILendListService;
 import org.springframework.stereotype.Service;
 
@@ -24,10 +24,10 @@ public class ILendListServiceImpl implements ILendListService {
     private IBookInfoMapper IBookInfoMapper;
 
     @Override
-    public PageInfo<LendList> queryLendListAll(LendList lendList, int page, int limit) {
+    public PageInfo<LendEntity> queryLendListAll(LendEntity lendEntity, int page, int limit) {
 
         PageHelper.startPage(page, limit);
-        List<LendList> list = ILendListMapper.queryLendListAll(lendList);
+        List<LendEntity> list = ILendListMapper.queryLendListAll(lendEntity);
 
         PageInfo pageInfo = new PageInfo(list);
 
@@ -35,8 +35,8 @@ public class ILendListServiceImpl implements ILendListService {
     }
 
     @Override
-    public void addLendListSubmit(LendList lendList) {
-        ILendListMapper.insert(lendList);
+    public void addLendListSubmit(LendEntity lendEntity) {
+        ILendListMapper.insert(lendEntity);
     }
 
 
@@ -52,10 +52,10 @@ public class ILendListServiceImpl implements ILendListService {
         for (String bid : bookIds) {
 
             // 根据id查询图书记录信息
-            BookInfo bookInfo = IBookInfoMapper.selectByPrimaryKey(Integer.parseInt(bid));
-            bookInfo.setStatus(0);
+            BookInfoEntity bookInfoEntity = IBookInfoMapper.selectByPrimaryKey(Integer.parseInt(bid));
+            bookInfoEntity.setStatus(0);
 
-            IBookInfoMapper.updateByPrimaryKey(bookInfo);
+            IBookInfoMapper.updateByPrimaryKey(bookInfoEntity);
         }
     }
 
@@ -65,49 +65,49 @@ public class ILendListServiceImpl implements ILendListService {
         for (String id : ids) {
 
             // 根据 ID 查询借阅记录信息
-            LendList lendList = new LendList();
-            lendList.setId(Integer.parseInt(id));
-            lendList.setBackDate(new Date());
-            lendList.setBackType(0);
+            LendEntity lendEntity = new LendEntity();
+            lendEntity.setId(Integer.parseInt(id));
+            lendEntity.setBackDate(new Date());
+            lendEntity.setBackType(0);
 
-            ILendListMapper.updateLendListSubmit(lendList);
+            ILendListMapper.updateLendListSubmit(lendEntity);
         }
 
         //更改图书标识，更新状态为未借出
         for (String bid : bookIds) {
 
             //根据id查询图书记录信息
-            BookInfo bookInfo = IBookInfoMapper.selectByPrimaryKey(Integer.parseInt(bid));
-            bookInfo.setStatus(0);//该为未借出
+            BookInfoEntity bookInfoEntity = IBookInfoMapper.selectByPrimaryKey(Integer.parseInt(bid));
+            bookInfoEntity.setStatus(0);//该为未借出
 
-            IBookInfoMapper.updateByPrimaryKey(bookInfo);
+            IBookInfoMapper.updateByPrimaryKey(bookInfoEntity);
         }
     }
 
     @Override
-    public void backBook(LendList lendList) {
-        LendList lend = new LendList();
+    public void backBook(LendEntity lendEntity) {
+        LendEntity lend = new LendEntity();
 
-        lend.setId(lendList.getId());
-        lend.setBackType(lendList.getBackType());
+        lend.setId(lendEntity.getId());
+        lend.setBackType(lendEntity.getBackType());
         lend.setBackDate(new Date());
-        lend.setExceptRemarks(lendList.getExceptRemarks());
-        lend.setBookId(lendList.getBookId());
+        lend.setExceptRemarks(lendEntity.getExceptRemarks());
+        lend.setBookId(lendEntity.getBookId());
 
         ILendListMapper.updateLendListSubmit(lend);
 
         // 判断异常还书 如果是延期或者正常还书，需要更改书的状态
         if (lend.getBackType() == 0 || lend.getBackType() == 1) {
 
-            BookInfo bookInfo = IBookInfoMapper.selectByPrimaryKey(lend.getBookId());
-            bookInfo.setStatus(0);
+            BookInfoEntity bookInfoEntity = IBookInfoMapper.selectByPrimaryKey(lend.getBookId());
+            bookInfoEntity.setStatus(0);
 
-            IBookInfoMapper.updateByPrimaryKey(bookInfo);
+            IBookInfoMapper.updateByPrimaryKey(bookInfoEntity);
         }
     }
 
     @Override
-    public List<LendList> queryLookBookList(Integer rid, Integer bid) {
+    public List<LendEntity> queryLookBookList(Integer rid, Integer bid) {
 
         return ILendListMapper.queryLookBookList(rid, bid);
     }

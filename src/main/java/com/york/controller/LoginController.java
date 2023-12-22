@@ -2,9 +2,9 @@ package com.york.controller;
 
 import com.york.codeutil.IVerifyCodeGen;
 import com.york.codeutil.SimpleCharVerifyCodeGenImpl;
-import com.york.entity.VerifyCode;
-import com.york.entity.Admin;
-import com.york.entity.ReaderInfo;
+import com.york.entity.AdminEntity;
+import com.york.entity.VerifyCodeEntity;
+import com.york.entity.ReaderInfoEntity;
 import com.york.service.IAdminService;
 import com.york.service.IReaderInfoService;
 import org.springframework.stereotype.Controller;
@@ -48,10 +48,10 @@ public class LoginController {
         IVerifyCodeGen iVerifyCodeGen = new SimpleCharVerifyCodeGenImpl();
         try {
             // 设置长宽
-            VerifyCode verifyCode = iVerifyCodeGen.generate(80, 28);
+            VerifyCodeEntity verifyCodeEntity = iVerifyCodeGen.generate(80, 28);
 
             // 获取验证码
-            String code = verifyCode.getCode();
+            String code = verifyCodeEntity.getCode();
 
             // 将VerifyCode绑定session
             request.getSession().setAttribute("VerifyCode", code);
@@ -63,7 +63,7 @@ public class LoginController {
 
             // 设置响应内容类型
             response.setContentType("image/jpeg");
-            response.getOutputStream().write(verifyCode.getImgBytes());
+            response.getOutputStream().write(verifyCodeEntity.getImgBytes());
             response.getOutputStream().flush();
         } catch (IOException e) {
             System.out.println("发生异常，原因是 -> " + e.getMessage());
@@ -95,27 +95,27 @@ public class LoginController {
             if (type.equals("1")) {
 
                 // 用户名和密码是否正确
-                Admin admin = IAdminService.queryUserByNameAndPassword(username, password);
+                AdminEntity adminEntity = IAdminService.queryUserByNameAndPassword(username, password);
 
                 // 该用户不存在
-                if (admin == null) {
+                if (adminEntity == null) {
                     model.addAttribute("msg", "用户名或密码错误");
 
                     return "login";
                 }
 
-                session.setAttribute("user", admin);
+                session.setAttribute("user", adminEntity);
                 session.setAttribute("type", "admin");
             } else {
                 // 来自读者信息表
-                ReaderInfo readerInfo = readerService.queryUserInfoByNameAndPassword(username, password);
-                if (readerInfo == null) {
+                ReaderInfoEntity readerInfoEntity = readerService.queryUserInfoByNameAndPassword(username, password);
+                if (readerInfoEntity == null) {
                     model.addAttribute("msg", "用户名或密码错误");
 
                     return "login";
                 }
 
-                session.setAttribute("user", readerInfo);
+                session.setAttribute("user", readerInfoEntity);
                 session.setAttribute("type", "reader");
             }
 

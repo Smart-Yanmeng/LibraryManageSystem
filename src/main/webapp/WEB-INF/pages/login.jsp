@@ -53,7 +53,7 @@
             overflow: hidden;
         }
 
-        .admin-login-background {
+        .adminEntity-login-background {
             width: 450px;
             height: 300px;
 
@@ -129,7 +129,7 @@
 <body>
 
 <div class="layui-container">
-    <div class="admin-login-background">
+    <div class="adminEntity-login-background">
         <div class="layui-form login-form">
             <form class="layui-form" action="${pageContext.request.contextPath}/loginIn" method="post">
                 <div class="layui-form-item logo-title">
@@ -194,7 +194,7 @@
      */
     function getCode() {
 
-        document.getElementById("code").src = timestamp("verifyCode");
+        document.getElementById("code").src = timestamp("verifyCodeEntity");
     }
 
     /**

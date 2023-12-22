@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class TypeInfo implements Serializable {
+public class TypeInfoEntity implements Serializable {
 
     // 图书类型 ID
     private Integer id;

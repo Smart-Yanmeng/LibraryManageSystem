@@ -1,7 +1,7 @@
 package com.york.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.york.entity.TypeInfo;
+import com.york.entity.TypeInfoEntity;
 import com.york.service.ITypeInfoService;
 import com.york.utils.DataInfo;
 import org.springframework.stereotype.Controller;
@@ -38,7 +38,7 @@ public class TypeInfoController {
     @RequestMapping("/typeAll")
     @ResponseBody
     public DataInfo typeAll(String name, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "15") Integer limit) {
-        PageInfo<TypeInfo> pageInfo = ITypeInfoService.queryTypeInfoAll(name, pageNum, limit);
+        PageInfo<TypeInfoEntity> pageInfo = ITypeInfoService.queryTypeInfoAll(name, pageNum, limit);
 
         return DataInfo.ok("成功", pageInfo.getTotal(), pageInfo.getList());//总条数getTotal，数据封装成list,以便加载分页显示,由于加了ResponseBody,就会返回一个字符串
     }
@@ -61,7 +61,7 @@ public class TypeInfoController {
      */
     @PostMapping("/addTypeSubmit")
     @ResponseBody
-    public DataInfo addTypeSubmit(TypeInfo info) {
+    public DataInfo addTypeSubmit(TypeInfoEntity info) {
 
         ITypeInfoService.addTypeSubmit(info);
 
@@ -76,7 +76,7 @@ public class TypeInfoController {
     @GetMapping("/queryTypeInfoById")
     public String queryTypeInfoById(Integer id, Model model) {
 
-        TypeInfo info = ITypeInfoService.queryTypeInfoById(id);
+        TypeInfoEntity info = ITypeInfoService.queryTypeInfoById(id);
         model.addAttribute("info", info);
 
         return "type/updateType";
@@ -89,7 +89,7 @@ public class TypeInfoController {
      */
     @RequestMapping("/updateTypeSubmit")
     @ResponseBody
-    public DataInfo updateTypeSubmit(@RequestBody TypeInfo info) {
+    public DataInfo updateTypeSubmit(@RequestBody TypeInfoEntity info) {
 
         ITypeInfoService.updateTypeSubmit(info);
 

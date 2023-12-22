@@ -1,7 +1,7 @@
 package com.york.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.york.entity.Notice;
+import com.york.entity.NoticeEntity;
 import com.york.service.INoticeService;
 import com.york.utils.DataInfo;
 import org.springframework.stereotype.Controller;
@@ -48,9 +48,9 @@ public class NoticeController {
      */
     @RequestMapping("/noticeAll")
     @ResponseBody
-    public DataInfo noticeAll(Notice notice, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "15") Integer limit) {
+    public DataInfo noticeAll(NoticeEntity noticeEntity, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "15") Integer limit) {
 
-        PageInfo<Notice> pageInfo = INoticeService.queryAllNotice(notice, pageNum, limit);
+        PageInfo<NoticeEntity> pageInfo = INoticeService.queryAllNotice(noticeEntity, pageNum, limit);
 
         return DataInfo.ok("成功", pageInfo.getTotal(), pageInfo.getList());
     }
@@ -73,12 +73,12 @@ public class NoticeController {
      */
     @RequestMapping("/addNoticeSubmit")
     @ResponseBody
-    public DataInfo addNoticeSubmit(Notice notice) {
+    public DataInfo addNoticeSubmit(NoticeEntity noticeEntity) {
 
         // 主题和内容可以页面获取，作者和时间在后台自动获取
-        notice.setAuthor("admin");
-        notice.setCreateDate(new Date());
-        INoticeService.addNotice(notice);
+        noticeEntity.setAuthor("admin");
+        noticeEntity.setCreateDate(new Date());
+        INoticeService.addNotice(noticeEntity);
 
         return DataInfo.ok();
     }
@@ -91,8 +91,8 @@ public class NoticeController {
     @GetMapping("/queryNoticeById")
     public String queryNoticeById(Integer id, Model model) {
 
-        Notice notice = INoticeService.queryNoticeById(id);
-        model.addAttribute("info", notice);
+        NoticeEntity noticeEntity = INoticeService.queryNoticeById(id);
+        model.addAttribute("info", noticeEntity);
 
         return "notice/updateNotice";
     }

@@ -31,7 +31,7 @@
             background-color: transparent;
         }
 
-        .admin-login-background {
+        .adminEntity-login-background {
             width: 300px;
             height: 300px;
             position: absolute;
@@ -41,7 +41,7 @@
             margin-top: -100px;
         }
 
-        .admin-header {
+        .adminEntity-header {
             text-align: center;
             margin-bottom: 20px;
             color: #ffffff;
@@ -49,7 +49,7 @@
             font-size: 40px
         }
 
-        .admin-input {
+        .adminEntity-input {
             border-top-style: none;
             border-right-style: solid;
             border-bottom-style: solid;
@@ -59,7 +59,7 @@
             padding-bottom: 0px;
         }
 
-        .admin-input::-webkit-input-placeholder {
+        .adminEntity-input::-webkit-input-placeholder {
             color: #a78369
         }
 
@@ -79,16 +79,16 @@
             color: #9dadce !important;
         }
 
-        .admin-input-username {
+        .adminEntity-input-username {
             border-top-style: solid;
             border-radius: 10px 10px 0 0;
         }
 
-        .admin-input-verify {
+        .adminEntity-input-verify {
             border-radius: 0 0 10px 10px;
         }
 
-        .admin-button {
+        .adminEntity-button {
             margin-top: 20px;
             font-weight: bold;
             font-size: 18px;
@@ -99,7 +99,7 @@
             border: 1px solid #d8b29f
         }
 
-        .admin-icon {
+        .adminEntity-icon {
             margin-left: 260px;
             margin-top: 10px;
             font-size: 30px;
@@ -109,7 +109,7 @@
             position: absolute;
         }
 
-        .admin-captcha {
+        .adminEntity-captcha {
             position: absolute;
             margin-left: 205px;
             margin-top: -40px;
@@ -119,27 +119,27 @@
 <body>
 <div id="container">
     <div></div>
-    <div class="admin-login-background">
-        <div class="admin-header">
+    <div class="adminEntity-login-background">
+        <div class="adminEntity-header">
             <span>layuimini</span>
         </div>
         <form class="layui-form" action="">
             <div>
-                <i class="layui-icon layui-icon-username admin-icon"></i>
+                <i class="layui-icon layui-icon-username adminEntity-icon"></i>
                 <input type="text" name="username" placeholder="请输入用户名" autocomplete="off"
-                       class="layui-input admin-input admin-input-username" value="admin">
+                       class="layui-input adminEntity-input adminEntity-input-username" value="adminEntity">
             </div>
             <div>
-                <i class="layui-icon layui-icon-password admin-icon"></i>
+                <i class="layui-icon layui-icon-password adminEntity-icon"></i>
                 <input type="password" name="password" placeholder="请输入密码" autocomplete="off"
-                       class="layui-input admin-input" value="123456">
+                       class="layui-input adminEntity-input" value="123456">
             </div>
             <div>
                 <input type="text" name="captcha" placeholder="请输入验证码" autocomplete="off"
-                       class="layui-input admin-input admin-input-verify" value="xszg">
-                <img class="admin-captcha" width="90" height="30" src="../images/captcha.jpg">
+                       class="layui-input adminEntity-input adminEntity-input-verify" value="xszg">
+                <img class="adminEntity-captcha" width="90" height="30" src="../images/captcha.jpg">
             </div>
-            <button class="layui-btn admin-button" lay-submit="" lay-filter="login">登 陆</button>
+            <button class="layui-btn adminEntity-button" lay-submit="" lay-filter="login">登 陆</button>
         </form>
     </div>
 </div>

@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class ReaderInfo implements Serializable {
+public class ReaderInfoEntity implements Serializable {
 
     // 用户 ID
     private Integer id;

@@ -1,6 +1,6 @@
 package com.york.dao;
 
-import com.york.entity.BookInfo;
+import com.york.entity.BookInfoEntity;
 
 import java.util.List;
 
@@ -8,23 +8,23 @@ public interface IBookInfoMapper {
 
     int deleteByPrimaryKey(Integer id);
 
-    int insert(BookInfo record);
+    int insert(BookInfoEntity record);
 
-    int insertSelective(BookInfo record);
+    int insertSelective(BookInfoEntity record);
 
-    BookInfo selectByPrimaryKey(Integer id);
+    BookInfoEntity selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(BookInfo record);
+    int updateByPrimaryKeySelective(BookInfoEntity record);
 
-    int updateByPrimaryKey(BookInfo record);
+    int updateByPrimaryKey(BookInfoEntity record);
 
     /**
      * 查询所有图书记录
      */
-    List<BookInfo> queryBookInfoAll(BookInfo bookInfo);
+    List<BookInfoEntity> queryBookInfoAll(BookInfoEntity bookInfoEntity);
 
     /**
      * 根据类型获取图书数量
      */
-    List<BookInfo> getBookCountByType();
+    List<BookInfoEntity> getBookCountByType();
 }
