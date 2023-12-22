@@ -34,5 +34,4 @@ public interface ILendListMapper {
      * 还书操作(正常还)
      */
     void updateLendListSubmit(LendEntity lendEntity);
-
 }

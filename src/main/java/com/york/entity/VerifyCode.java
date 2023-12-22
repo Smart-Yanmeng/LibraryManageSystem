@@ -3,7 +3,7 @@ package com.york.entity;
 import lombok.Data;
 
 @Data
-public class VerifyCodeEntity {
+public class VerifyCode {
 
     // 验证码
     private String code;

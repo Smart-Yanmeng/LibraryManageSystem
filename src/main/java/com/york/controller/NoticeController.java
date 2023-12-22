@@ -3,7 +3,7 @@ package com.york.controller;
 import com.github.pagehelper.PageInfo;
 import com.york.entity.NoticeEntity;
 import com.york.service.INoticeService;
-import com.york.utils.DataInfo;
+import com.york.entity.DataInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

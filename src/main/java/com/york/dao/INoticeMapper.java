@@ -22,5 +22,4 @@ public interface INoticeMapper {
      * 查询所有公告信息
      */
     List<NoticeEntity> queryNoticeAll(NoticeEntity noticeEntity);
-
 }

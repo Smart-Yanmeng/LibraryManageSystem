@@ -5,7 +5,7 @@ import com.york.entity.AdminEntity;
 import com.york.entity.ReaderInfoEntity;
 import com.york.service.IAdminService;
 import com.york.service.IReaderInfoService;
-import com.york.utils.DataInfo;
+import com.york.entity.DataInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.york.codeutil;
+package com.york.utils;
 
 import java.awt.*;
 import java.util.Random;

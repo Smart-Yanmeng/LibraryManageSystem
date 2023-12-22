@@ -1,6 +1,6 @@
-package com.york.codeutil;
+package com.york.utils;
 
-import com.york.entity.VerifyCodeEntity;
+import com.york.entity.VerifyCode;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -26,5 +26,5 @@ public interface IVerifyCodeGen {
      * @return 验证码对象
      * @throws IOException IO异常
      */
-    VerifyCodeEntity generate(int width, int height) throws IOException;
+    VerifyCode generate(int width, int height) throws IOException;
 }

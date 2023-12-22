@@ -5,7 +5,7 @@ import com.york.entity.BookInfoEntity;
 import com.york.entity.TypeInfoEntity;
 import com.york.service.IBookInfoService;
 import com.york.service.ITypeInfoService;
-import com.york.utils.DataInfo;
+import com.york.entity.DataInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

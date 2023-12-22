@@ -1,4 +1,4 @@
-package com.york.utils;
+package com.york.entity;
 
 public class Constants {
 

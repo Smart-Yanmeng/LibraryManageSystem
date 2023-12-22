@@ -3,7 +3,7 @@ package com.york.controller;
 import com.github.pagehelper.PageInfo;
 import com.york.entity.TypeInfoEntity;
 import com.york.service.ITypeInfoService;
-import com.york.utils.DataInfo;
+import com.york.entity.DataInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

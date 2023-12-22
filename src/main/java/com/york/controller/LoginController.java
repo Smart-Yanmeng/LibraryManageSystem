@@ -1,9 +1,9 @@
 package com.york.controller;
 
-import com.york.codeutil.IVerifyCodeGen;
-import com.york.codeutil.SimpleCharVerifyCodeGenImpl;
+import com.york.utils.IVerifyCodeGen;
+import com.york.utils.SimpleCharVerifyCodeGenImpl;
 import com.york.entity.AdminEntity;
-import com.york.entity.VerifyCodeEntity;
+import com.york.entity.VerifyCode;
 import com.york.entity.ReaderInfoEntity;
 import com.york.service.IAdminService;
 import com.york.service.IReaderInfoService;
@@ -48,10 +48,10 @@ public class LoginController {
         IVerifyCodeGen iVerifyCodeGen = new SimpleCharVerifyCodeGenImpl();
         try {
             // 设置长宽
-            VerifyCodeEntity verifyCodeEntity = iVerifyCodeGen.generate(80, 28);
+            VerifyCode verifyCode = iVerifyCodeGen.generate(80, 28);
 
             // 获取验证码
-            String code = verifyCodeEntity.getCode();
+            String code = verifyCode.getCode();
 
             // 将VerifyCode绑定session
             request.getSession().setAttribute("VerifyCode", code);
@@ -63,7 +63,7 @@ public class LoginController {
 
             // 设置响应内容类型
             response.setContentType("image/jpeg");
-            response.getOutputStream().write(verifyCodeEntity.getImgBytes());
+            response.getOutputStream().write(verifyCode.getImgBytes());
             response.getOutputStream().flush();
         } catch (IOException e) {
             System.out.println("发生异常，原因是 -> " + e.getMessage());
@@ -85,7 +85,7 @@ public class LoginController {
         // 判断验证码是否正确（验证码已经放入session）
         HttpSession session = request.getSession();
         String realCode = (String) session.getAttribute("VerifyCode");
-        if (!realCode.toLowerCase().equals(code.toLowerCase())) {
+        if (!realCode.equalsIgnoreCase(code)) {
             model.addAttribute("msg", "验证码不正确");
 
             return "login";
@@ -135,5 +135,4 @@ public class LoginController {
 
         return "/login";
     }
-
 }

@@ -7,7 +7,7 @@ import com.york.entity.ReaderInfoEntity;
 import com.york.service.IBookInfoService;
 import com.york.service.ILendListService;
 import com.york.service.IReaderInfoService;
-import com.york.utils.DataInfo;
+import com.york.entity.DataInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -87,26 +87,33 @@ public class LendListController {
     @ResponseBody
     @RequestMapping("/addLend")
     public DataInfo addLend(String readerNumber, String ids) {
-        //获取图书id的集合
-        List<String> list = Arrays.asList(ids.split(","));
-        //判断卡号是否存在
+
+        // 获取图书id的集合
+        String[] list = ids.split(",");
+
+        // 判断卡号是否存在
         ReaderInfoEntity reader = new ReaderInfoEntity();
         reader.setReaderNumber(readerNumber);
         PageInfo<ReaderInfoEntity> pageInfo = readerService.queryAllReaderInfo(reader, 1, 1);
-        if (pageInfo.getList().size() == 0) {
+        if (pageInfo.getList().isEmpty()) {
             return DataInfo.fail("卡号信息不存在");
         } else {
             ReaderInfoEntity readerCard2 = pageInfo.getList().get(0);
-            //可借书
+            // 可借书
             for (String bid : list) {
+
                 LendEntity lendEntity = new LendEntity();
-                lendEntity.setReaderId(readerCard2.getId());//读者id
-                lendEntity.setBookId(Integer.valueOf(bid));//书的id
+
+                lendEntity.setReaderId(readerCard2.getId());
+                lendEntity.setBookId(Integer.valueOf(bid));
                 lendEntity.setLendDate(new Date());
+
                 ILendListService.addLendListSubmit(lendEntity);
-                //更变书的状态
+
+                // 更变书的状态
                 BookInfoEntity info = IBookInfoService.queryBookInfoById(Integer.valueOf(bid));
-                //设置书的状态
+
+                // 设置书的状态
                 info.setStatus(1);
                 IBookInfoService.updateBookSubmit(info);
             }
@@ -123,8 +130,9 @@ public class LendListController {
     @ResponseBody
     @RequestMapping("/deleteLendListByIds")
     public DataInfo deleteLendListByIds(String ids, String bookIds) {
-        List list = Arrays.asList(ids.split(","));//借阅记录的id
-        List blist = Arrays.asList(bookIds.split(","));//图书信息的id
+
+        List<String> list = Arrays.asList(ids.split(","));
+        List<String> blist = Arrays.asList(bookIds.split(","));
 
         ILendListService.deleteLendListById(list, blist);
         return DataInfo.ok();
@@ -136,9 +144,11 @@ public class LendListController {
     @ResponseBody
     @RequestMapping("/backLendListByIds")
     public DataInfo backLendListByIds(String ids, String bookIds) {
-        List list = Arrays.asList(ids.split(","));//借阅记录的id
-        List blist = Arrays.asList(bookIds.split(","));//图书信息的id
+
+        List<String> list = Arrays.asList(ids.split(","));
+        List<String> blist = Arrays.asList(bookIds.split(","));
         ILendListService.updateLendListSubmit(list, blist);
+
         return DataInfo.ok();
     }
 
@@ -147,11 +157,14 @@ public class LendListController {
      */
     @GetMapping("/excBackBook")
     public String excBackBook(HttpServletRequest request, Model model) {
-        //获取借阅记录id
+
+        // 获取借阅记录 ID
         String id = request.getParameter("id");
         String bId = request.getParameter("bookId");
+
         model.addAttribute("id", id);
         model.addAttribute("bid", bId);
+
         return "lend/excBackBook";
     }
 
@@ -161,7 +174,9 @@ public class LendListController {
     @ResponseBody
     @RequestMapping("/updateLendInfoSubmit")
     public DataInfo updateLendInfoSubmit(LendEntity lendEntity) {
+
         ILendListService.backBook(lendEntity);
+
         return DataInfo.ok();
     }
 
@@ -170,23 +185,26 @@ public class LendListController {
      */
     @RequestMapping("/queryLookBookList")
     public String queryLookBookList(String flag, Integer id, Model model) {
+
         List<LendEntity> list = null;
+
         if (flag.equals("book")) {
             list = ILendListService.queryLookBookList(null, id);
         } else {
             list = ILendListService.queryLookBookList(id, null);
         }
         model.addAttribute("info", list);
+
         return "lend/lookBookList";
     }
 
     @RequestMapping("/queryLookBookList2")
     public String queryLookBookList(HttpServletRequest request, Model model) {
+
         ReaderInfoEntity readerInfoEntity = (ReaderInfoEntity) request.getSession().getAttribute("user");
-        List<LendEntity> list = list = ILendListService.queryLookBookList(readerInfoEntity.getId(), null);
+        List<LendEntity> list = ILendListService.queryLookBookList(readerInfoEntity.getId(), null);
         model.addAttribute("info", list);
+
         return "lend/lookBookList";
     }
-
-
 }

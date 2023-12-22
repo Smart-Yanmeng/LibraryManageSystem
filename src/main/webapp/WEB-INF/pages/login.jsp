@@ -194,7 +194,7 @@
      */
     function getCode() {
 
-        document.getElementById("code").src = timestamp("verifyCodeEntity");
+        document.getElementById("code").src = timestamp("verifyCode");
     }
 
     /**

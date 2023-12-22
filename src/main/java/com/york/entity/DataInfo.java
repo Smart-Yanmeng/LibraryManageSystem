@@ -1,26 +1,25 @@
-package com.york.utils;
+package com.york.entity;
+
+import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * 数据封闭类，返回给前端
- */
+@Data
 public class DataInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    // 返回状态码
     private Integer code = 200;
 
+    // 返回消息
     private String msg = "Success";
 
+    // 数据
     private Object data;
 
-    // 分页总条数
+    // 数据总数
     private Long count;
-
-    // 构造函数
-    public DataInfo() {
-    }
 
     public DataInfo(Integer code, String msg, Object data) {
         this.code = code;
@@ -33,10 +32,6 @@ public class DataInfo implements Serializable {
         this.msg = msg;
         this.data = data;
         this.count = count;
-    }
-
-    public Integer getCode() {
-        return code;
     }
 
     public static DataInfo ok() {
@@ -61,33 +56,5 @@ public class DataInfo implements Serializable {
 
     public static DataInfo fail(int errorCode, String msg) {
         return new DataInfo(errorCode, msg, null);
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
-    }
-
-    public Long getCount() {
-        return count;
-    }
-
-    public void setCount(Long count) {
-        this.count = count;
     }
 }
