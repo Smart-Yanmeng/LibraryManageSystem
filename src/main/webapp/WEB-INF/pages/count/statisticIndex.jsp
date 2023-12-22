@@ -20,7 +20,7 @@
 <script src="${pageContext.request.contextPath}/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script src="${pageContext.request.contextPath}/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
 <script>
-    layui.use(['layer', 'miniTab','echarts'], function () {
+    layui.use(['layer', 'miniTab', 'echarts'], function () {
         var $ = layui.jquery,
             layer = layui.layer,
             miniTab = layui.miniTab,
@@ -31,22 +31,22 @@
             var echarts = layui.echarts,
                 $ = layui.jquery;
             console.log(echarts);
+
             // 基于准备好的dom，初始化echarts实例
             var myChart = echarts.init(document.getElementById('main'));
-            //var myChart2 = echarts.init(document.getElementById('main2'));
 
             // 指定图表的配置项和数据
             var option = {
-                series : [
+                series: [
                     {
                         name: '访问来源',
                         type: 'pie',
                         radius: '55%',
-                        data:[
+                        data: [
                             <c:forEach items="${list}" var="type">
-                            {value:${type.counts}, name:'${type.name}'},
+                            {value:${type.counts}, name: '${type.name}'},
                             </c:forEach>
-                            ,0
+                            , 0
                         ],
                         roseType: 'angle',
                         itemStyle: {

@@ -38,8 +38,9 @@
 
         <script type="text/html" id="toolbarDemo">
             <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
-                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除 </button>
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加</button>
+                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除
+                </button>
             </div>
         </script>
 
@@ -73,24 +74,26 @@
                 {type: "checkbox", width: 50},
                 //{field: 'id', width: 100, title: 'ID', sort: true},
                 {field: 'username', width: 150, title: '用户名'},
-                {field: 'adminType', width: 200, title: '管理员类型',templet:function (res) {
-                        if (res.adminType == '0'){
+                {
+                    field: 'adminType', width: 200, title: '管理员类型', templet: function (res) {
+                        if (res.adminType == '0') {
                             return '<span class="layui-btn layui-btn-normal layui-btn-xs">普通管理员</span>';
-                        }else{
+                        } else {
                             return '<span class="layui-btn layui-btn-normal layui-btn-xs" style="background-color: orangered;">高级管理员</span>';
                         }
-                    }},
+                    }
+                },
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
-            limit: 15,  <!--默认显示15条-->
+            limit: 15,
             page: true,
             skin: 'line',
-            id:'testReload'
+            id: 'testReload'
         });
 
         var $ = layui.$, active = {
-            reload: function(){
+            reload: function () {
                 var username = $('#username').val();
                 var adminType = $('#adminType').val();
                 console.log(name)
@@ -99,15 +102,15 @@
                     page: {
                         curr: 1 //重新从第 1 页开始
                     }
-                    ,where: {
+                    , where: {
                         username: username,
-                        adminType:adminType
+                        adminType: adminType
                     }
                 }, 'data');
             }
         };
 
-        $('.demoTable .layui-btn').on('click', function(){
+        $('.demoTable .layui-btn').on('click', function () {
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
@@ -116,16 +119,16 @@
          * tool操作栏监听事件
          */
         table.on('tool(currentTableFilter)', function (obj) {
-            var data=obj.data;
+            var data = obj.data;
             if (obj.event === 'edit') {  // 监听修改操作
                 var index = layer.open({
                     title: '修改管理员信息',
                     type: 2,
                     shade: 0.2,
-                    maxmin:true,
+                    maxmin: true,
                     shadeClose: true,
                     area: ['60%', '60%'],
-                    content: '${pageContext.request.contextPath}/queryAdminById?id='+data.id,
+                    content: '${pageContext.request.contextPath}/queryAdminById?id=' + data.id,
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
@@ -133,23 +136,23 @@
             } else if (obj.event === 'delete') {  // 监听删除操作
                 layer.confirm('确定是否删除', function (index) {
                     //调用删除功能
-                    deleteInfoByIds(data.id,index);
+                    deleteInfoByIds(data.id, index);
                     layer.close(index);
                 });
             }
         });
 
-        //监听表格复选框选择
+        // 监听表格复选框选择
         table.on('checkbox(currentTableFilter)', function (obj) {
             console.log(obj)
         });
 
         /**
-         * 获取选中记录的id信息
+         * 获取选中记录的 ID 信息
          */
-        function getCheackId(data){
-            var arr=new Array();
-            for(var i=0;i<data.length;i++){
+        function getCheackId(data) {
+            var arr = [];
+            for (var i = 0; i < data.length; i++) {
                 arr.push(data[i].id);
             }
             //拼接id,变成一个字符串
@@ -158,16 +161,16 @@
 
 
         /**
-         * 提交删除功能
+         * 提交删除
          */
-        function deleteInfoByIds(ids ,index){
-            //向后台发送请求
+        function deleteInfoByIds(ids, index) {
+
             $.ajax({
                 url: "deleteAdminByIds",
                 type: "POST",
                 data: {ids: ids},
                 success: function (result) {
-                    if (result.code == 0) {//如果成功
+                    if (result.code === 0) {
                         layer.msg('删除成功', {
                             icon: 6,
                             time: 500
@@ -184,15 +187,15 @@
         };
 
         /**
-         * toolbar栏监听事件
+         * toolbar 栏监听事件
          */
         table.on('toolbar(currentTableFilter)', function (obj) {
-            if (obj.event === 'add') {  // 监听添加操作
+            if (obj.event === 'add') {
                 var index = layer.open({
                     title: '添加管理员',
                     type: 2,
                     shade: 0.2,
-                    maxmin:true,
+                    maxmin: true,
                     shadeClose: true,
                     area: ['60%', '60%'],
                     content: '${pageContext.request.contextPath}/adminAdd',
@@ -201,28 +204,20 @@
                     layer.full(index);
                 });
             } else if (obj.event === 'delete') {
-                /*
-                  1、提示内容，必须删除大于0条
-                  2、获取要删除记录的id信息
-                  3、提交删除功能 ajax
-                */
-                //获取选中的记录信息
-                var checkStatus=table.checkStatus(obj.config.id);
-                var data=checkStatus.data;
-                if(data.length==0){//如果没有选中信息
+                var checkStatus = table.checkStatus(obj.config.id);
+                var data = checkStatus.data;
+                if (data.length === 0) {
                     layer.msg("请选择要删除的记录信息");
-                }else{
-                    //获取记录信息的id集合,拼接的ids
-                    var ids=getCheackId(data);
+                } else {
+                    var ids = getCheackId(data);
                     layer.confirm('确定是否删除', function (index) {
-                        //调用删除功能
-                        deleteInfoByIds(ids,index);
+
+                        deleteInfoByIds(ids, index);
                         layer.close(index);
                     });
                 }
             }
         });
-
     });
 </script>
 

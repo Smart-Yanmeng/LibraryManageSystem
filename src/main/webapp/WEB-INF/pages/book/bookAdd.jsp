@@ -13,27 +13,29 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/public.css" media="all">
     <style>
         body {
-            background-color: #ffffff;
+            background-color: #FFFFFF;
         }
     </style>
 </head>
 <body>
 <div class="layui-form layuimini-form">
     <div class="layui-form-item">
-        <label class="layui-form-label required">图书名称</label>
+        <label class="layui-form-label required">名称</label>
         <div class="layui-input-block">
-            <input type="text" name="name" lay-verify="required" lay-reqtext="图书名称不能为空" placeholder="请输入图书名称" autocomplete="off" class="layui-input">
+            <input type="text" name="name" lay-verify="required" lay-reqtext="图书名称不能为空"
+                   placeholder="请输入图书名称" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label required">图书编号</label>
+        <label class="layui-form-label required">编号</label>
         <div class="layui-input-block">
-            <input type="text" name="isbn" lay-verify="required" lay-reqtext="图书编号不能为空" placeholder="请输入图书编号" autocomplete="off" class="layui-input">
+            <input type="text" name="isbn" lay-verify="required" lay-reqtext="图书编号不能为空"
+                   placeholder="请输入图书编号" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label required">图书类别</label>
+        <label class="layui-form-label required">类别</label>
         <div class="layui-input-block">
             <select name="typeId" id="typeId" lay-verify="required">
                 <option value="">请选择</option>
@@ -42,30 +44,30 @@
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label required">图书作者</label>
+        <label class="layui-form-label required">作者</label>
         <div class="layui-input-block">
-            <input type="text" name="author" lay-verify="required"  class="layui-input" autocomplete="off">
+            <input type="text" name="author" lay-verify="required" class="layui-input" autocomplete="off">
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label required">图书出版社</label>
+        <label class="layui-form-label required">出版社</label>
         <div class="layui-input-block">
-            <input type="text" name="publish" lay-verify="required"  class="layui-input" autocomplete="off">
+            <input type="text" name="publish" lay-verify="required" class="layui-input" autocomplete="off">
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label required">图书语言</label>
+        <label class="layui-form-label required">语言</label>
         <div class="layui-input-block">
-            <input type="text" name="language" autocomplete="off"  class="layui-input">
+            <input type="text" name="language" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label required">图书价格</label>
+        <label class="layui-form-label required">价格</label>
         <div class="layui-input-block">
-            <input type="number" name="price" autocomplete="off"  class="layui-input">
+            <input type="number" name="price" autocomplete="off" class="layui-input">
         </div>
     </div>
 
@@ -77,7 +79,7 @@
     </div>
 
     <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">图书介绍</label>
+        <label class="layui-form-label">介绍</label>
         <div class="layui-input-block">
             <textarea name="introduction" class="layui-textarea" placeholder="请输入介绍信息"></textarea>
         </div>
@@ -91,56 +93,57 @@
 </div>
 <script src="${pageContext.request.contextPath}/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script>
-    layui.use(['form','laydate'], function () {
+    layui.use(['form', 'laydate'], function () {
         var form = layui.form,
             layer = layui.layer,
-            laydate=layui.laydate,
+            laydate = layui.laydate,
             $ = layui.$;
 
-        //日期
         laydate.render({
             elem: '#date',
-            trigger:'click'
+            trigger: 'click'
         });
 
-        //动态获取图书类型的数据
-        $.get("findAllList",{},function (data) {
-            var list=data;
-            var select=document.getElementById("typeId");
-            if(list!=null|| list.size()>0){
-                for(var c in list){
-                    var option=document.createElement("option");
-                    option.setAttribute("value",list[c].id);
-                    option.innerText=list[c].name;
+        // 动态获取图书类型的数据
+        $.get("findAllList", {}, function (data) {
+            var list = data;
+            var select = document.getElementById("typeId");
+            if (list != null || list.size() > 0) {
+                for (var c in list) {
+                    var option = document.createElement("option");
+                    option.setAttribute("value", list[c].id);
+                    option.innerText = list[c].name;
                     select.appendChild(option);
                 }
             }
             form.render('select');
-        },"json")
+        }, "json")
 
-        //监听提交
+        // 监听提交
         form.on('submit(saveBtn)', function (data) {
-            var datas=data.field;//form单中的数据信息
-            //向后台发送数据提交添加
+            var datas = data.field;
+
             $.ajax({
-                url:"addBookSubmit",
-                type:"POST",
-                data:datas,
-                success:function(result){
-                    if(result.code==0){//如果成功
-                        layer.msg('添加成功',{
-                            icon:6,
-                            time:500
-                        },function(){
+                url: "addBookSubmit",
+                type: "POST",
+                data: datas,
+                success: function (result) {
+                    if (result.code === 0) {
+                        layer.msg('添加成功', {
+                            icon: 6,
+                            time: 500
+                        }, function () {
                             parent.window.location.reload();
                             var iframeIndex = parent.layer.getFrameIndex(window.name);
                             parent.layer.close(iframeIndex);
                         })
-                    }else{
+                    } else {
+
                         layer.msg("添加失败");
                     }
                 }
             })
+
             return false;
         });
     });

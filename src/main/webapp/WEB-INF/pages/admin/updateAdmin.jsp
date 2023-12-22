@@ -13,13 +13,13 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/public.css" media="all">
     <style>
         body {
-            background-color: #ffffff;
+            background-color: #FFFFFF;
         }
     </style>
 </head>
 <body>
 <div class="layui-form layuimini-form">
-    <input type="hidden" name="id"  value="${id}">
+    <input type="hidden" name="id" value="${id}">
     <div class="layui-form-item">
         <label class="layui-form-label required">旧密码</label>
         <div class="layui-input-block">
@@ -35,7 +35,8 @@
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label required">确认新密码</label>
         <div class="layui-input-block">
-            <input type="password" name="newPwdAgain" lay-verify="required" lay-reqtext="新密码不能为空" class="layui-input">
+            <input type="password" name="newPwdAgain" lay-verify="required" lay-reqtext="新密码不能为空"
+                   class="layui-input">
         </div>
     </div>
 
@@ -52,37 +53,36 @@
             layer = layui.layer,
             $ = layui.$;
 
-        //监听提交
         form.on('submit(saveBtn)', function (data) {
-            var datas=data.field;//form单中的数据信息
-            if (datas.newPwd != datas.newPwdAgain){
+            var datas = data.field;
+            if (datas.newPwd !== datas.newPwdAgain) {
                 layer.msg("两次输入的新密码不一致,请重新输入")
-            }else{
-                //向后台发送数据提交添加
+            } else {
                 $.ajax({
-                    url:"updatePwdSubmit",
-                    type:"POST",
+                    url: "updatePwdSubmit",
+                    type: "POST",
                     data: {
-                        id:datas.id,
-                        oldPwd:datas.oldPwd,
-                        newPwd:datas.newPwd
+                        id: datas.id,
+                        oldPwd: datas.oldPwd,
+                        newPwd: datas.newPwd
                     },
-                    success:function(result){
-                        if(result.code==0){//如果成功
-                            layer.msg("修改成功",{
-                                icon:6,
-                                time:500
-                            },function(){
+                    success: function (result) {
+                        if (result.code === 0) {
+                            layer.msg("修改成功", {
+                                icon: 6,
+                                time: 500
+                            }, function () {
                                 parent.window.location.reload();
                                 var iframeIndex = parent.layer.getFrameIndex(window.name);
                                 parent.layer.close(iframeIndex);
                             })
-                        }else{
+                        } else {
                             layer.msg(result.msg);
                         }
                     }
                 })
             }
+
             return false;
         });
 

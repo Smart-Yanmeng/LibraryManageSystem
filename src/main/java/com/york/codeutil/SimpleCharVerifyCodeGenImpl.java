@@ -65,6 +65,7 @@ public class SimpleCharVerifyCodeGenImpl implements IVerifyCodeGen {
      */
     @Override
     public String generate(int width, int height, OutputStream os) throws IOException {
+
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Graphics graphics = image.getGraphics();
         fillBackground(graphics, width, height);
@@ -114,6 +115,7 @@ public class SimpleCharVerifyCodeGenImpl implements IVerifyCodeGen {
         char[] charArray = randomStr.toCharArray();
 
         for (int i = 0; i < charArray.length; i++) {
+
             // 设置RGB颜色算法参数
             g.setColor(new Color(50 + RandomUtils.nextInt(100),
                     50 + RandomUtils.nextInt(100), 50 + RandomUtils.nextInt(100)));

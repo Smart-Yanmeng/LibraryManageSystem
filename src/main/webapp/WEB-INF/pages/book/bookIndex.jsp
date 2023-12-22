@@ -1,10 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
-<%--<%
-    String path=request.getContextPath();
-    String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>--%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +14,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/public.css" media="all">
     <script src="${pageContext.request.contextPath}/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 </head>
+
 <body>
 <div class="layuimini-container">
     <div class="layuimini-main">
@@ -43,12 +41,12 @@
 
         <script type="text/html" id="toolbarDemo">
             <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
-                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除 </button>
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加</button>
+                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除
+                </button>
             </div>
         </script>
 
-        <!--表单，查询出的数据在这里显示-->
         <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
 
         <script type="text/html" id="currentTableBar">
@@ -65,25 +63,25 @@
             form = layui.form,
             table = layui.table;
 
-        //动态获取图书类型的数据，即下拉菜单，跳出图书类型
-        $.get("findAllList",{},function (data) {
-            var list=data;
-            var select=document.getElementById("typeId");
-            if(list!=null|| list.size()>0){
-                for(var obj in list){
-                    var option=document.createElement("option");
-                    option.setAttribute("value",list[obj].id);
-                    option.innerText=list[obj].name;
+        // 动态获取图书类型的数据
+        $.get("findAllList", {}, function (data) {
+            var list = data;
+            var select = document.getElementById("typeId");
+            if (list != null || list.size() > 0) {
+                for (var obj in list) {
+                    var option = document.createElement("option");
+                    option.setAttribute("value", list[obj].id);
+                    option.innerText = list[obj].name;
                     select.appendChild(option);
                 }
             }
             form.render('select');
-        },"json")
+        }, "json")
 
 
         table.render({
             elem: '#currentTableId',
-            url: '${pageContext.request.contextPath}/bookAll',//查询类型数据
+            url: '${pageContext.request.contextPath}/bookAll',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -95,40 +93,39 @@
                 //{field: 'id', width: 100, title: 'ID', sort: true},
                 {field: 'isbn', width: 100, title: '图书编号'},
                 {field: 'name', width: 100, title: '图书名称'},
-                {templet:'<div>{{d.typeInfo.name}}</div>',width:100,title:'图书类型'},
+                {templet: '<div>{{d.typeInfo.name}}</div>', width: 100, title: '图书类型'},
                 {field: 'author', width: 80, title: '作者'},
                 {field: 'price', width: 80, title: '价格'},
                 {field: 'language', width: 80, title: '语言'},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
-            limit: 15,  <!--默认显示15条-->
+            limit: 15,
             page: true,
             skin: 'line',
-            id:'testReload'
+            id: 'testReload'
         });
 
         var $ = layui.$, active = {
-            reload: function(){
+            reload: function () {
                 var name = $('#name').val();
                 var isbn = $('#isbn').val();
                 var typeId = $('#typeId').val();
                 console.log(name)
-                //执行重载
                 table.reload('testReload', {
                     page: {
-                        curr: 1 //重新从第 1 页开始
+                        curr: 1
                     }
-                    ,where: {
+                    , where: {
                         name: name,
-                        isbn:isbn,
-                        typeId:typeId
+                        isbn: isbn,
+                        typeId: typeId
                     }
                 }, 'data');
             }
         };
 
-        $('.demoTable .layui-btn').on('click', function(){
+        $('.demoTable .layui-btn').on('click', function () {
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
@@ -137,30 +134,29 @@
          * tool操作栏监听事件
          */
         table.on('tool(currentTableFilter)', function (obj) {
-            var data=obj.data;
-            if (obj.event === 'update') {  // 监听修改操作
+            var data = obj.data;
+            if (obj.event === 'update') {
                 var index = layer.open({
                     title: '修改图书信息',
                     type: 2,
                     shade: 0.2,
-                    maxmin:true,
+                    maxmin: true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '${pageContext.request.contextPath}/queryBookInfoById?id='+data.id,
+                    content: '${pageContext.request.contextPath}/queryBookInfoById?id=' + data.id,
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
                 });
-            } else if (obj.event === 'delete') {  // 监听删除操作
+            } else if (obj.event === 'delete') {
                 layer.confirm('确定是否删除', function (index) {
-                    //调用删除功能
-                    deleteInfoByIds(data.id,index);
+                    deleteInfoByIds(data.id, index);
                     layer.close(index);
                 });
             }
         });
 
-        //监听表格复选框选择
+        // 监听表格复选框选择
         table.on('checkbox(currentTableFilter)', function (obj) {
             console.log(obj)
         });
@@ -168,12 +164,12 @@
         /**
          * 获取选中记录的id信息
          */
-        function getCheackId(data){
-            var arr=new Array();
-            for(var i=0;i<data.length;i++){
+        function getCheackId(data) {
+            var arr = [];
+            for (var i = 0; i < data.length; i++) {
                 arr.push(data[i].id);
             }
-            //拼接id,变成一个字符串
+
             return arr.join(",");
         };
 
@@ -181,14 +177,14 @@
         /**
          * 提交删除功能
          */
-        function deleteInfoByIds(ids ,index){
-            //向后台发送请求
+        function deleteInfoByIds(ids, index) {
+
             $.ajax({
                 url: "deleteBook",
                 type: "POST",
                 data: {ids: ids},
                 success: function (result) {
-                    if (result.code == 0) {//如果成功
+                    if (result.code === 0) {
                         layer.msg('删除成功', {
                             icon: 6,
                             time: 500
@@ -208,12 +204,12 @@
          * toolbar栏监听事件
          */
         table.on('toolbar(currentTableFilter)', function (obj) {
-            if (obj.event === 'add') {  // 监听添加操作
+            if (obj.event === 'add') {
                 var index = layer.open({
                     title: '添加图书',
                     type: 2,
                     shade: 0.2,
-                    maxmin:true,
+                    maxmin: true,
                     shadeClose: true,
                     area: ['100%', '100%'],
                     content: '${pageContext.request.contextPath}/bookAdd',
@@ -222,28 +218,21 @@
                     layer.full(index);
                 });
             } else if (obj.event === 'delete') {
-                /*
-                  1、提示内容，必须删除大于0条
-                  2、获取要删除记录的id信息
-                  3、提交删除功能 ajax
-                */
-                //获取选中的记录信息
-                var checkStatus=table.checkStatus(obj.config.id);
-                var data=checkStatus.data;
-                if(data.length==0){//如果没有选中信息
+
+                var checkStatus = table.checkStatus(obj.config.id);
+                var data = checkStatus.data;
+                if (data.length === 0) {
                     layer.msg("请选择要删除的记录信息");
-                }else{
-                    //获取记录信息的id集合,拼接的ids
-                    var ids=getCheackId(data);
+                } else {
+                    var ids = getCheackId(data);
                     layer.confirm('确定是否删除', function (index) {
-                        //调用删除功能
-                        deleteInfoByIds(ids,index);
+
+                        deleteInfoByIds(ids, index);
                         layer.close(index);
                     });
                 }
             }
         });
-
     });
 </script>
 

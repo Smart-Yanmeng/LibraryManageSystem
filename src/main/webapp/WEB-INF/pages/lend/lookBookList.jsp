@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <%@ page isELIgnored="false" %>
 <html>
@@ -19,22 +19,24 @@
     <legend>借书时间线</legend>
 </fieldset>
 <ul class="layui-timeline">
-<c:forEach var="lend" items="${info}" varStatus="status">
-    <li class="layui-timeline-item">
-        <div class="layui-timeline-content layui-text">
-            <div class="layui-timeline-title">
-                <fmt:formatDate value="${lend.lendDate}" pattern="yyyy年MM月dd日HH点mm分ss秒" /> <br/>
-                <span style="color: red"> ${lend.readerInfo.realName}</span> 借走 <span style="color: crimson"><<${lend.bookInfo.name}>></span><br/>
-                <c:if test="${lend.backDate == null}">
-                     未归还
-                </c:if>
-                <c:if test="${lend.backDate != null}">
-                    <fmt:formatDate value="${lend.backDate}" pattern="yyyy年MM月dd日HH点mm分ss秒" /> <span style="color: green">归还</span>,
-                </c:if>
+    <c:forEach var="lend" items="${info}" varStatus="status">
+        <li class="layui-timeline-item">
+            <div class="layui-timeline-content layui-text">
+                <div class="layui-timeline-title">
+                    <fmt:formatDate value="${lend.lendDate}" pattern="yyyy年MM月dd日HH点mm分ss秒"/> <br/>
+                    <span style="color: red"> ${lend.readerInfo.realName}</span> 借走 <span
+                        style="color: crimson"><<${lend.bookInfo.name}>></span><br/>
+                    <c:if test="${lend.backDate == null}">
+                        未归还
+                    </c:if>
+                    <c:if test="${lend.backDate != null}">
+                        <fmt:formatDate value="${lend.backDate}" pattern="yyyy年MM月dd日HH点mm分ss秒"/> <span
+                            style="color: green">归还</span>,
+                    </c:if>
+                </div>
             </div>
-        </div>
-    </li>
-</c:forEach>
+        </li>
+    </c:forEach>
 
 </ul>
 <script src="${pageContext.request.contextPath}/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/public.css" media="all">
     <style>
         body {
-            background-color: #ffffff;
+            background-color: #FFFFFF;
         }
     </style>
 </head>
@@ -22,13 +22,15 @@
     <div class="layui-form-item">
         <label class="layui-form-label required">用户名</label>
         <div class="layui-input-block">
-            <input type="text" name="username" lay-verify="required" lay-reqtext="用户名不能为空" autocomplete="off" placeholder="请输入用户名" class="layui-input">
+            <input type="text" name="username" lay-verify="required" lay-reqtext="用户名不能为空" autocomplete="off"
+                   placeholder="请输入用户名" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label required">密码</label>
         <div class="layui-input-block">
-            <input type="password" name="password" lay-verify="required" lay-reqtext="密码不能为空" placeholder="请输入密码" class="layui-input">
+            <input type="password" name="password" lay-verify="required" lay-reqtext="密码不能为空"
+                   placeholder="请输入密码" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -50,33 +52,34 @@
 <script src="${pageContext.request.contextPath}/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script>
     layui.use(['form'], function () {
+
         var form = layui.form,
             layer = layui.layer,
             $ = layui.$;
 
-        //监听提交
         form.on('submit(saveBtn)', function (data) {
-            var datas=data.field;//form单中的数据信息
-            //向后台发送数据提交添加
+            var datas = data.field;
+
             $.ajax({
-                url:"addAdminSubmit",
-                type:"POST",
-                data:datas,
-                success:function(result){
-                    if(result.code==0){//如果成功
-                        layer.msg('添加成功',{
-                            icon:6,
-                            time:500
-                        },function(){
+                url: "addAdminSubmit",
+                type: "POST",
+                data: datas,
+                success: function (result) {
+                    if (result.code === 0) {
+                        layer.msg('添加成功', {
+                            icon: 6,
+                            time: 500
+                        }, function () {
                             parent.window.location.reload();
                             var iframeIndex = parent.layer.getFrameIndex(window.name);
                             parent.layer.close(iframeIndex);
                         })
-                    }else{
-                         layer.msg("类型添加失败");
+                    } else {
+                        layer.msg("类型添加失败");
                     }
                 }
             })
+
             return false;
         });
 
