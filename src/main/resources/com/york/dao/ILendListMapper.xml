@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.york.dao.ILendListMapper">
-    <resultMap id="BaseResultMap" type="com.york.entity.LendEntity">
+    <resultMap id="BaseResultMap" type="com.york.entity.LendList">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="bookId" jdbcType="INTEGER" property="bookId"/>
         <result column="readerId" jdbcType="INTEGER" property="readerId"/>
@@ -28,7 +28,7 @@
         where id = #{id,jdbcType=INTEGER}
     </delete>
 
-    <insert id="insert" parameterType="com.york.entity.LendEntity">
+    <insert id="insert" parameterType="com.york.entity.LendList">
         insert into lend_list (id, bookId, readerId,
                                lendDate, backDate, backType,
                                exceptRemarks)
@@ -37,7 +37,7 @@
                 #{exceptRemarks,jdbcType=VARCHAR})
     </insert>
 
-    <insert id="insertSelective" parameterType="com.york.entity.LendEntity">
+    <insert id="insertSelective" parameterType="com.york.entity.LendList">
         insert into lend_list
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -87,7 +87,7 @@
         </trim>
     </insert>
 
-    <update id="updateByPrimaryKeySelective" parameterType="com.york.entity.LendEntity">
+    <update id="updateByPrimaryKeySelective" parameterType="com.york.entity.LendList">
         update lend_list
         <set>
             <if test="bookId != null">
@@ -112,7 +112,7 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
 
-    <update id="updateByPrimaryKey" parameterType="com.york.entity.LendEntity">
+    <update id="updateByPrimaryKey" parameterType="com.york.entity.LendList">
         update lend_list
         set bookId        = #{bookId,jdbcType=INTEGER},
             readerId      = #{readerId,jdbcType=INTEGER},
@@ -123,22 +123,22 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
 
-    <resultMap id="queryLendListAllMap" type="com.york.entity.LendEntity" extends="BaseResultMap">
+    <resultMap id="queryLendListAllMap" type="com.york.entity.LendList" extends="BaseResultMap">
         <!--图书信息,需要得到图书名-->
-        <association property="bookInfoEntity" javaType="com.york.entity.BookInfoEntity">
+        <association property="bookInfo" javaType="com.york.entity.BookInfo">
             <id property="id" column="id"></id>
             <result property="name" column="bookName"></result>
         </association>
 
         <!--读者信息，需要得到读者卡号和真实姓名-->
-        <association property="readerInfoEntity" javaType="com.york.entity.ReaderInfoEntity">
+        <association property="readerInfo" javaType="com.york.entity.ReaderInfo">
             <id property="id" column="id"></id>
             <result property="realName" column="realName"></result>
             <result property="readerNumber" column="readerNumber"></result>
         </association>
     </resultMap>
 
-    <select id="queryLendListAll" parameterType="com.york.entity.LendEntity" resultMap="queryLendListAllMap">
+    <select id="queryLendListAll" parameterType="com.york.entity.LendList" resultMap="queryLendListAllMap">
         SELECT lend.*,
         book.name as bookName,
         reader.realName as realName,
@@ -146,23 +146,23 @@
         from lend_list lend LEFT JOIN book_info book on book.id=lend.bookId
         LEFT JOIN reader_info reader on reader.id=lend.readerId
         <where>
-            <if test="bookInfoEntity!=null">
+            <if test="bookInfo!=null">
                 <!--根据图书名称查询-->
-                <if test="bookInfoEntity.name!=null and bookInfoEntity.name!=''">
-                    and book.name like '%${bookInfoEntity.name}%'
+                <if test="bookInfo.name!=null and bookInfo.name!=''">
+                    and book.name like '%${bookInfo.name}%'
                 </if>
                 <!-- 判断返还时间是否为空 -->
-                <if test="bookInfoEntity.status!=null and bookInfoEntity.status==1">
+                <if test="bookInfo.status!=null and bookInfo.status==1">
                     and book.status=1 and backDate is null
                 </if>
-                <if test="bookInfoEntity.status!=null and bookInfoEntity.status==0">
+                <if test="bookInfo.status!=null and bookInfo.status==0">
                     and book.status=0 and backDate is not null
                 </if>
             </if>
             <!-- 根据借阅卡查询 -->
-            <if test="readerInfoEntity!=null">
-                <if test="readerInfoEntity.readerNumber!=null and readerInfoEntity.readerNumber!=''">
-                    and readerNumber like '%${readerInfoEntity.readerNumber}%'
+            <if test="readerInfo!=null">
+                <if test="readerInfo.readerNumber!=null and readerInfo.readerNumber!=''">
+                    and readerNumber like '%${readerInfo.readerNumber}%'
                 </if>
             </if>
             <!-- 根据归还类型查询 -->
@@ -174,7 +174,7 @@
     </select>
 
     <!-- 还书 -->
-    <update id="updateLendListSubmit" parameterType="com.york.entity.LendEntity">
+    <update id="updateLendListSubmit" parameterType="com.york.entity.LendList">
         update lend_list
         <set>
             backDate=#{backDate},
@@ -193,15 +193,15 @@
         SELECT
         lend.*,
         reader.readerNumber,
-        bookInfoEntity.name AS bookName,
+        bookInfo.name AS bookName,
         reader.realName AS realName
         FROM
         lend_list lend
         LEFT JOIN reader_info reader ON reader.id = lend.readerId
-        LEFT JOIN book_info bookInfoEntity ON bookInfoEntity.id = lend.bookId
+        LEFT JOIN book_info bookInfo ON bookInfo.id = lend.bookId
         <where>
 
-            <if test="bid!=null">and bookInfoEntity.id=#{bid}</if>
+            <if test="bid!=null">and bookInfo.id=#{bid}</if>
 
             <if test="rid!=null">and reader.id=#{rid}</if>
 

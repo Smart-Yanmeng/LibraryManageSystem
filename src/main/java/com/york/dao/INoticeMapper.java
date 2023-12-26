@@ -1,6 +1,6 @@
 package com.york.dao;
 
-import com.york.entity.NoticeEntity;
+import com.york.entity.Notice;
 
 import java.util.List;
 
@@ -8,18 +8,18 @@ public interface INoticeMapper {
 
     int deleteByPrimaryKey(Integer id);
 
-    int insert(NoticeEntity record);
+    int insert(Notice record);
 
-    int insertSelective(NoticeEntity record);
+    int insertSelective(Notice record);
 
-    NoticeEntity selectByPrimaryKey(Integer id);
+    Notice selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(NoticeEntity record);
+    int updateByPrimaryKeySelective(Notice record);
 
-    int updateByPrimaryKey(NoticeEntity record);
+    int updateByPrimaryKey(Notice record);
 
     /**
      * 查询所有公告信息
      */
-    List<NoticeEntity> queryNoticeAll(NoticeEntity noticeEntity);
+    List<Notice> queryNoticeAll(Notice notice);
 }

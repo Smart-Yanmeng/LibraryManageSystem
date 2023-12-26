@@ -1,7 +1,7 @@
 package com.york.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.york.entity.NoticeEntity;
+import com.york.entity.Notice;
 import com.york.service.INoticeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,10 +36,10 @@ public class BaseController {
     @GetMapping("/welcome")
     public String welcome(Model model) {
         // 提供公告信息
-        PageInfo<NoticeEntity> pageInfo = INoticeService.queryAllNotice(null, 1, 5);
+        PageInfo<Notice> pageInfo = INoticeService.queryAllNotice(null, 1, 5);
         if (pageInfo != null) {
-            List<NoticeEntity> noticeEntityList = pageInfo.getList();
-            model.addAttribute("noticeList", noticeEntityList);
+            List<Notice> noticeList = pageInfo.getList();
+            model.addAttribute("noticeList", noticeList);
         }
 
         return "welcome";

@@ -1,6 +1,6 @@
 package com.york.dao;
 
-import com.york.entity.AdminEntity;
+import com.york.entity.Admin;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -9,23 +9,23 @@ public interface IAdminMapper {
 
     int deleteByPrimaryKey(Integer id);
 
-    int insert(AdminEntity record);
+    int insert(Admin record);
 
-    int insertSelective(AdminEntity record);
+    int insertSelective(Admin record);
 
-    AdminEntity selectByPrimaryKey(Integer id);
+    Admin selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(AdminEntity record);
+    int updateByPrimaryKeySelective(Admin record);
 
-    int updateByPrimaryKey(AdminEntity record);
+    int updateByPrimaryKey(Admin record);
 
     /**
      * 管理员查询
      */
-    List<AdminEntity> queryAdminInfoAll(AdminEntity adminEntity);
+    List<Admin> queryAdminInfoAll(Admin admin);
 
     /**
      * 根据用户名和密码查询用户信息
      */
-    AdminEntity queryUserByNameAndPassword(@Param("username") String username, @Param("password") String password);
+    Admin queryUserByNameAndPassword(@Param("username") String username, @Param("password") String password);
 }

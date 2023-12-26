@@ -92,12 +92,12 @@
                 {type: "checkbox", width: 50},
                 //{field: 'id', width: 100, title: 'ID', sort: true},
                 {
-                    templet: '<div><a href="javascript:void(0)" style="color:#00b7ee" lay-event="bookInfoEvent">{{d.bookInfoEntity.name}}</a></div>',
+                    templet: '<div><a href="javascript:void(0)" style="color:#00b7ee" lay-event="bookInfoEvent">{{d.bookInfo.name}}</a></div>',
                     width: 100, title: '图书名称'
                 },
-                {templet: '<div>{{d.readerInfoEntity.readerNumber}}</div>', width: 120, title: '借书卡'},
+                {templet: '<div>{{d.readerInfo.readerNumber}}</div>', width: 120, title: '借书卡'},
                 {
-                    templet: '<div><a href="javascript:void(0)" style="color:#00b7ee" lay-event="readerInfoEvent">{{d.readerInfoEntity.realName}}</a></div>',
+                    templet: '<div><a href="javascript:void(0)" style="color:#00b7ee" lay-event="readerInfoEvent">{{d.readerInfo.realName}}</a></div>',
                     width: 100, title: '借阅人'
                 },
                 // {templet: '<div>{{d.reader.name}}</div>', width: 80, title: '借阅人'},

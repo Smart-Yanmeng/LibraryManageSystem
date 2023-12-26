@@ -3,7 +3,7 @@ package com.york.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.york.dao.ITypeInfoMapper;
-import com.york.entity.TypeInfoEntity;
+import com.york.entity.TypeInfo;
 import com.york.service.ITypeInfoService;
 import org.springframework.stereotype.Service;
 
@@ -18,28 +18,28 @@ public class ITypeInfoServiceImpl implements ITypeInfoService {
     private ITypeInfoMapper ITypeInfoMapper;
 
     @Override
-    public PageInfo<TypeInfoEntity> queryTypeInfoAll(String name, Integer pageNum, Integer limit) {
+    public PageInfo<TypeInfo> queryTypeInfoAll(String name, Integer pageNum, Integer limit) {
 
         PageHelper.startPage(pageNum, limit);
-        List<TypeInfoEntity> typeInfoEntityList = ITypeInfoMapper.queryTypeInfoAll(name);
+        List<TypeInfo> typeInfoList = ITypeInfoMapper.queryTypeInfoAll(name);
 
-        return new PageInfo<>(typeInfoEntityList);
+        return new PageInfo<>(typeInfoList);
     }
 
     @Override
-    public void addTypeSubmit(TypeInfoEntity info) {
+    public void addTypeSubmit(TypeInfo info) {
 
         ITypeInfoMapper.addTypeSubmit(info);
     }
 
     @Override
-    public TypeInfoEntity queryTypeInfoById(Integer id) {
+    public TypeInfo queryTypeInfoById(Integer id) {
 
         return ITypeInfoMapper.queryTypeInfoById(id);
     }
 
     @Override
-    public void updateTypeSubmit(TypeInfoEntity info) {
+    public void updateTypeSubmit(TypeInfo info) {
 
         ITypeInfoMapper.updateTypeSubmit(info);
     }

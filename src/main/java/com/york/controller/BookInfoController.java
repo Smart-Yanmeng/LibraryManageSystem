@@ -1,8 +1,8 @@
 package com.york.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.york.entity.BookInfoEntity;
-import com.york.entity.TypeInfoEntity;
+import com.york.entity.BookInfo;
+import com.york.entity.TypeInfo;
 import com.york.service.IBookInfoService;
 import com.york.service.ITypeInfoService;
 import com.york.entity.DataInfo;
@@ -36,15 +36,15 @@ public class BookInfoController {
     /**
      * 获取book信息，封装成json
      *
-     * @param bookInfoEntity BookInfo
+     * @param bookInfo BookInfo
      * @param pageNum  当前页
      * @param limit    每页显示的条数
      * @return Request Success
      */
     @RequestMapping("/bookAll")
     @ResponseBody
-    public DataInfo bookAll(BookInfoEntity bookInfoEntity, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "15") Integer limit) {
-        PageInfo<BookInfoEntity> pageInfo = IBookInfoService.queryBookInfoAll(bookInfoEntity, pageNum, limit);
+    public DataInfo bookAll(BookInfo bookInfo, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "15") Integer limit) {
+        PageInfo<BookInfo> pageInfo = IBookInfoService.queryBookInfoAll(bookInfo, pageNum, limit);
 
         return DataInfo.ok("成功", pageInfo.getTotal(), pageInfo.getList());
     }
@@ -68,7 +68,7 @@ public class BookInfoController {
      */
     @RequestMapping("/addBookSubmit")
     @ResponseBody
-    public DataInfo addBookSubmit(BookInfoEntity info) {
+    public DataInfo addBookSubmit(BookInfo info) {
         IBookInfoService.addBookSubmit(info);
 
         return DataInfo.ok();
@@ -83,8 +83,8 @@ public class BookInfoController {
      */
     @GetMapping("/queryBookInfoById")
     public String queryTypeInfoById(Integer id, Model model) {
-        BookInfoEntity bookInfoEntity = IBookInfoService.queryBookInfoById(id);
-        model.addAttribute("info", bookInfoEntity);
+        BookInfo bookInfo = IBookInfoService.queryBookInfoById(id);
+        model.addAttribute("info", bookInfo);
 
         return "book/updateBook";
     }
@@ -95,7 +95,7 @@ public class BookInfoController {
 
     @RequestMapping("/updateBookSubmit")
     @ResponseBody
-    public DataInfo updateBookSubmit(@RequestBody BookInfoEntity info) {
+    public DataInfo updateBookSubmit(@RequestBody BookInfo info) {
         IBookInfoService.updateBookSubmit(info);
         return DataInfo.ok();
     }
@@ -114,9 +114,9 @@ public class BookInfoController {
 
     @RequestMapping("/findAllList")
     @ResponseBody
-    public List<TypeInfoEntity> findAll() {
-        PageInfo<TypeInfoEntity> pageInfo = ITypeInfoService.queryTypeInfoAll(null, 1, 100);
-        List<TypeInfoEntity> lists = pageInfo.getList();
+    public List<TypeInfo> findAll() {
+        PageInfo<TypeInfo> pageInfo = ITypeInfoService.queryTypeInfoAll(null, 1, 100);
+        List<TypeInfo> lists = pageInfo.getList();
         return lists;
     }
 }

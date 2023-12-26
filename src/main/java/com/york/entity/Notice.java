@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class NoticeEntity implements Serializable {
+public class Notice implements Serializable {
 
     // 公告 ID
     private Integer id;

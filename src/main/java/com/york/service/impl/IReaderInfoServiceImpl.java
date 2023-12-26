@@ -3,7 +3,7 @@ package com.york.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.york.dao.IReaderInfoMapper;
-import com.york.entity.ReaderInfoEntity;
+import com.york.entity.ReaderInfo;
 import com.york.service.IReaderInfoService;
 import org.springframework.stereotype.Service;
 
@@ -17,30 +17,30 @@ public class IReaderInfoServiceImpl implements IReaderInfoService {
     private IReaderInfoMapper IReaderInfoMapper;
 
     @Override
-    public PageInfo<ReaderInfoEntity> queryAllReaderInfo(ReaderInfoEntity readerInfoEntity, Integer pageNum, Integer limit) {
+    public PageInfo<ReaderInfo> queryAllReaderInfo(ReaderInfo readerInfo, Integer pageNum, Integer limit) {
 
         PageHelper.startPage(pageNum, limit);
-        List<ReaderInfoEntity> readerInfoEntityList = IReaderInfoMapper.queryAllReaderInfo(readerInfoEntity);
+        List<ReaderInfo> readerInfoList = IReaderInfoMapper.queryAllReaderInfo(readerInfo);
 
-        return new PageInfo<>(readerInfoEntityList);
+        return new PageInfo<>(readerInfoList);
     }
 
     @Override
-    public void addReaderInfoSubmit(ReaderInfoEntity readerInfoEntity) {
+    public void addReaderInfoSubmit(ReaderInfo readerInfo) {
 
-        IReaderInfoMapper.insert(readerInfoEntity);
+        IReaderInfoMapper.insert(readerInfo);
     }
 
     @Override
-    public ReaderInfoEntity queryReaderInfoById(Integer id) {
+    public ReaderInfo queryReaderInfoById(Integer id) {
 
         return IReaderInfoMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public void updateReaderInfoSubmit(ReaderInfoEntity readerInfoEntity) {
+    public void updateReaderInfoSubmit(ReaderInfo readerInfo) {
 
-        IReaderInfoMapper.updateByPrimaryKey(readerInfoEntity);
+        IReaderInfoMapper.updateByPrimaryKey(readerInfo);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class IReaderInfoServiceImpl implements IReaderInfoService {
     }
 
     @Override
-    public ReaderInfoEntity queryUserInfoByNameAndPassword(String username, String password) {
+    public ReaderInfo queryUserInfoByNameAndPassword(String username, String password) {
 
         return IReaderInfoMapper.queryUserInfoByNameAndPassword(username, password);
     }

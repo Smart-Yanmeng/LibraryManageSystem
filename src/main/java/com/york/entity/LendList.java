@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class LendEntity implements Serializable {
+public class LendList implements Serializable {
 
     // 借阅记录 ID
     private Integer id;
@@ -36,10 +36,10 @@ public class LendEntity implements Serializable {
     private String exceptRemarks;
 
     // 图书信息
-    private BookInfoEntity bookInfoEntity;
+    private BookInfo bookInfo;
 
     // 读者信息
-    private ReaderInfoEntity readerInfoEntity;
+    private ReaderInfo readerInfo;
 
     private static final long serialVersionUID = 1L;
 }

@@ -1,10 +1,10 @@
 package com.york.controller;
 
+import com.york.entity.Admin;
 import com.york.utils.IVerifyCodeGen;
 import com.york.utils.SimpleCharVerifyCodeGenImpl;
-import com.york.entity.AdminEntity;
 import com.york.entity.VerifyCode;
-import com.york.entity.ReaderInfoEntity;
+import com.york.entity.ReaderInfo;
 import com.york.service.IAdminService;
 import com.york.service.IReaderInfoService;
 import org.springframework.stereotype.Controller;
@@ -95,27 +95,27 @@ public class LoginController {
             if (type.equals("1")) {
 
                 // 用户名和密码是否正确
-                AdminEntity adminEntity = IAdminService.queryUserByNameAndPassword(username, password);
+                Admin admin = IAdminService.queryUserByNameAndPassword(username, password);
 
                 // 该用户不存在
-                if (adminEntity == null) {
+                if (admin == null) {
                     model.addAttribute("msg", "用户名或密码错误");
 
                     return "login";
                 }
 
-                session.setAttribute("user", adminEntity);
+                session.setAttribute("user", admin);
                 session.setAttribute("type", "admin");
             } else {
                 // 来自读者信息表
-                ReaderInfoEntity readerInfoEntity = readerService.queryUserInfoByNameAndPassword(username, password);
-                if (readerInfoEntity == null) {
+                ReaderInfo readerInfo = readerService.queryUserInfoByNameAndPassword(username, password);
+                if (readerInfo == null) {
                     model.addAttribute("msg", "用户名或密码错误");
 
                     return "login";
                 }
 
-                session.setAttribute("user", readerInfoEntity);
+                session.setAttribute("user", readerInfo);
                 session.setAttribute("type", "reader");
             }
 

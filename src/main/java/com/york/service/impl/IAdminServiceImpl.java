@@ -3,7 +3,7 @@ package com.york.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.york.dao.IAdminMapper;
-import com.york.entity.AdminEntity;
+import com.york.entity.Admin;
 import com.york.service.IAdminService;
 import org.springframework.stereotype.Service;
 
@@ -17,27 +17,27 @@ public class IAdminServiceImpl implements IAdminService {
     private IAdminMapper IAdminMapper;
 
     @Override
-    public PageInfo<AdminEntity> queryAdminAll(AdminEntity adminEntity, Integer pageNum, Integer limit) {
+    public PageInfo<Admin> queryAdminAll(Admin admin, Integer pageNum, Integer limit) {
         PageHelper.startPage(pageNum, limit);
-        List<AdminEntity> adminEntityList = IAdminMapper.queryAdminInfoAll(adminEntity);
+        List<Admin> adminList = IAdminMapper.queryAdminInfoAll(admin);
 
-        return new PageInfo<>(adminEntityList);
+        return new PageInfo<>(adminList);
     }
 
     @Override
-    public void addAdminSubmit(AdminEntity adminEntity) {
-        IAdminMapper.insert(adminEntity);
+    public void addAdminSubmit(Admin admin) {
+        IAdminMapper.insert(admin);
     }
 
     @Override
-    public AdminEntity queryAdminById(Integer id) {
+    public Admin queryAdminById(Integer id) {
 
         return IAdminMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public void updateAdminSubmit(AdminEntity adminEntity) {
-        IAdminMapper.updateByPrimaryKey(adminEntity);
+    public void updateAdminSubmit(Admin admin) {
+        IAdminMapper.updateByPrimaryKey(admin);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class IAdminServiceImpl implements IAdminService {
     }
 
     @Override
-    public AdminEntity queryUserByNameAndPassword(String username, String password) {
+    public Admin queryUserByNameAndPassword(String username, String password) {
 
         return IAdminMapper.queryUserByNameAndPassword(username, password);
     }

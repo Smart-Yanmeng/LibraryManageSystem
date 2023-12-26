@@ -112,11 +112,11 @@
             background-color: #F8F8F8;
         }
 
-        .layuimini-noticeEntity:hover {
+        .layuimini-notice:hover {
             background: #f6f6f6;
         }
 
-        .layuimini-noticeEntity {
+        .layuimini-notice {
             padding: 7px 16px;
             clear: both;
             font-size: 12px !important;
@@ -125,19 +125,19 @@
             transition: background 0.2s ease-in-out;
         }
 
-        .layuimini-noticeEntity-title, .layuimini-noticeEntity-label {
+        .layuimini-notice-title, .layuimini-notice-label {
             padding-right: 70px !important;
             text-overflow: ellipsis !important;
             overflow: hidden !important;
             white-space: nowrap !important;
         }
 
-        .layuimini-noticeEntity-title {
+        .layuimini-notice-title {
             line-height: 28px;
             font-size: 14px;
         }
 
-        .layuimini-noticeEntity-extra {
+        .layuimini-notice-extra {
             position: absolute;
             top: 50%;
             margin-top: -8px;
@@ -197,10 +197,10 @@
         /**
          * 查看公告信息
          **/
-        $('body').on('click', '.layuimini-noticeEntity', function () {
-            var title = $(this).children('.layuimini-noticeEntity-title').text(),
-                noticeTime = $(this).children('.layuimini-noticeEntity-extra').text(),
-                content = $(this).children('.layuimini-noticeEntity-content').html();
+        $('body').on('click', '.layuimini-notice', function () {
+            var title = $(this).children('.layuimini-notice-title').text(),
+                noticeTime = $(this).children('.layuimini-notice-extra').text(),
+                content = $(this).children('.layuimini-notice-content').html();
             var html = '<div style="padding:15px 20px; text-align:justify; line-height: 22px;border-bottom:1px solid #e2e2e2;background-color: #2f4056;color: #ffffff">\n' +
                 '<div style="text-align: center;margin-bottom: 20px;font-weight: bold;border-bottom:1px solid #718fb5;padding-bottom: 5px"><h4 class="text-danger">' + title + '</h4></div>\n' +
                 '<div style="font-size: 12px">' + content + '</div>\n' +
@@ -210,7 +210,7 @@
                 title: '系统公告' + '<span style="float: right;right: 1px;font-size: 12px;color: #b1b3b9;margin-top: 1px">' + noticeTime + '</span>',
                 area: '300px;',
                 shade: 0.8,
-                id: 'layuimini-noticeEntity',
+                id: 'layuimini-notice',
                 btn: ['查看', '取消'],
                 btnAlign: 'c',
                 moveType: 1,

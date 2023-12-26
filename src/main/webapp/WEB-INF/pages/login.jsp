@@ -53,7 +53,7 @@
             overflow: hidden;
         }
 
-        .adminEntity-login-background {
+        .admin-login-background {
             width: 450px;
             height: 300px;
 
@@ -129,7 +129,7 @@
 <body>
 
 <div class="layui-container">
-    <div class="adminEntity-login-background">
+    <div class="admin-login-background">
         <div class="layui-form login-form">
             <form class="layui-form" action="${pageContext.request.contextPath}/loginIn" method="post">
                 <div class="layui-form-item logo-title">

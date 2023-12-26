@@ -1,6 +1,6 @@
 package com.york.controller;
 
-import com.york.entity.BookInfoEntity;
+import com.york.entity.BookInfo;
 import com.york.service.IBookInfoService;
 import com.york.service.ITypeInfoService;
 import org.springframework.stereotype.Controller;
@@ -29,7 +29,7 @@ public class StatisticsController {
     public String statistics(Model model){
 
         // 根据图书类型查询图书数量
-        List<BookInfoEntity> list = IBookInfoService.getBookCountByType();
+        List<BookInfo> list = IBookInfoService.getBookCountByType();
         model.addAttribute("list",list);
 
         return "count/statisticIndex";

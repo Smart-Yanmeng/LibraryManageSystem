@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class AdminEntity implements Serializable {
+public class Admin implements Serializable {
 
     // 用户 ID
     private Integer id;

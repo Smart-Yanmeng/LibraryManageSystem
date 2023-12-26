@@ -3,7 +3,7 @@ package com.york.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.york.dao.INoticeMapper;
-import com.york.entity.NoticeEntity;
+import com.york.entity.Notice;
 import com.york.service.INoticeService;
 import org.springframework.stereotype.Service;
 
@@ -17,21 +17,21 @@ public class INoticeServiceImpl implements INoticeService {
     private INoticeMapper INoticeMapper;
 
     @Override
-    public PageInfo<NoticeEntity> queryAllNotice(NoticeEntity noticeEntity, Integer pageNum, Integer limit) {
+    public PageInfo<Notice> queryAllNotice(Notice notice, Integer pageNum, Integer limit) {
 
         PageHelper.startPage(pageNum, limit);
-        List<NoticeEntity> noticeEntityList = INoticeMapper.queryNoticeAll(noticeEntity);
+        List<Notice> noticeList = INoticeMapper.queryNoticeAll(notice);
 
-        return new PageInfo<>(noticeEntityList);
+        return new PageInfo<>(noticeList);
     }
 
     @Override
-    public void addNotice(NoticeEntity noticeEntity) {
-        INoticeMapper.insert(noticeEntity);
+    public void addNotice(Notice notice) {
+        INoticeMapper.insert(notice);
     }
 
     @Override
-    public NoticeEntity queryNoticeById(Integer id) {
+    public Notice queryNoticeById(Integer id) {
 
         return INoticeMapper.selectByPrimaryKey(id);
     }

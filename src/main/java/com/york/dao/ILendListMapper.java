@@ -1,6 +1,6 @@
 package com.york.dao;
 
-import com.york.entity.LendEntity;
+import com.york.entity.LendList;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -9,29 +9,29 @@ public interface ILendListMapper {
 
     void deleteByPrimaryKey(Integer id);
 
-    void insert(LendEntity record);
+    void insert(LendList record);
 
-    void insertSelective(LendEntity record);
+    void insertSelective(LendList record);
 
-    LendEntity selectByPrimaryKey(Integer id);
+    LendList selectByPrimaryKey(Integer id);
 
-    void updateByPrimaryKeySelective(LendEntity record);
+    void updateByPrimaryKeySelective(LendList record);
 
-    void updateByPrimaryKey(LendEntity record);
+    void updateByPrimaryKey(LendList record);
 
     /**
      * 查询所有借阅记录
      */
-    List<LendEntity> queryLendListAll(LendEntity lendEntity);
+    List<LendList> queryLendListAll(LendList lendList);
 
 
     /**
      * 查询借阅阅时间线（一本书什么时候被借走过）
      */
-    List<LendEntity> queryLookBookList(@Param("rid") Integer rid, @Param("bid") Integer bid);
+    List<LendList> queryLookBookList(@Param("rid") Integer rid, @Param("bid") Integer bid);
 
     /**
      * 还书操作(正常还)
      */
-    void updateLendListSubmit(LendEntity lendEntity);
+    void updateLendListSubmit(LendList lendList);
 }

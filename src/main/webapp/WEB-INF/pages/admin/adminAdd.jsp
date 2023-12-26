@@ -17,6 +17,7 @@
         }
     </style>
 </head>
+
 <body>
 <div class="layui-form layuimini-form">
     <div class="layui-form-item">

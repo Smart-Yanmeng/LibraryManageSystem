@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class BookInfoEntity implements Serializable {
+public class BookInfo implements Serializable {
 
     // 图书 ID
     private Integer id;
@@ -42,7 +42,7 @@ public class BookInfoEntity implements Serializable {
     private Integer status;
 
     // 图书信息
-    private TypeInfoEntity typeInfoEntity;
+    private TypeInfo typeInfo;
 
     // 图书数量
     private Integer counts;
