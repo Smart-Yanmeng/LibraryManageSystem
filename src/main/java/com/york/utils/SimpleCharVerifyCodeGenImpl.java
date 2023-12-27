@@ -126,5 +126,3 @@ public class SimpleCharVerifyCodeGenImpl implements IVerifyCodeGen {
         }
     }
 }
-
-
